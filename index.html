@@ -113,7 +113,7 @@
 
     <div id="propertyModal" class="modal"><div class="modal-content"><div class="modal-header"><div class="modal-title" id="propertyModalTitle">Nuovo Immobile</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><div class="form-group"><label>Nome *</label><input type="text" id="propName" placeholder="Es: Appartamento Via Roma 10"></div><div class="form-group"><label>Indirizzo</label><input type="text" id="propAddress" placeholder="Via Roma 10, Milano"></div><div class="form-group"><label>Note</label><textarea id="propNotes" placeholder="Note aggiuntive..."></textarea></div></div><div class="modal-footer"><button class="btn btn-secondary modal-close-btn">Annulla</button><button class="btn btn-primary" id="savePropBtn">Salva</button></div></div></div>
     <div id="systemModal" class="modal"><div class="modal-content"><div class="modal-header"><div class="modal-title">Nuovo Impianto</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><div class="form-group"><label>Categoria *</label><select id="systemCategory"><option value="">Seleziona...</option><option value="Elettrico">⚡ Elettrico</option><option value="Idraulico">💧 Idraulico</option><option value="Riscaldamento">🔥 Riscaldamento</option><option value="Condizionamento">❄️ Condizionamento</option><option value="Varie Interni">🏠 Varie Interni</option><option value="Varie Esterni">🌳 Varie Esterni</option></select></div><div class="form-group"><label>Descrizione</label><textarea id="systemDesc" placeholder="Dettagli impianto..."></textarea></div><div class="form-group"><label>Foto Targhetta/Impianto</label><input type="file" id="systemPhoto" accept="image/*" capture="environment" multiple><div id="systemPhotoPreview" class="photo-preview"></div></div></div><div class="modal-footer"><button class="btn btn-secondary modal-close-btn">Annulla</button><button class="btn btn-primary" id="saveSystemBtn">Salva</button></div></div></div>
-    <div id="ticketModal" class="modal"><div class="modal-content"><div class="modal-header"><div class="modal-title" id="ticketModalTitle">Nuovo Ticket</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><div class="form-group"><label>Titolo *</label><input type="text" id="ticketTitle" placeholder="Es: Perdita rubinetto bagno"></div><div class="form-group"><label>Descrizione</label><textarea id="ticketDesc" placeholder="Descrizione del problema..."></textarea></div><div class="form-group hidden" id="ticketStatusGroup"><label>Stato</label><select id="ticketStatus"><option value="Aperto">🔵 Aperto</option><option value="In lavorazione">🟠 In lavorazione</option><option value="Chiuso">🟢 Chiuso</option></select></div><div class="form-group"><label>Foto</label><input type="file" id="ticketPhoto" accept="image/*" capture="environment" multiple><div id="ticketPhotoPreview" class="photo-preview"></div></div></div><div class="modal-footer"><button class="btn btn-secondary modal-close-btn">Annulla</button><button class="btn btn-primary" id="saveTicketBtn">Salva</button></div></div></div>
+    <div id="ticketModal" class="modal"><div class="modal-content"><div class="modal-header"><div class="modal-title" id="ticketModalTitle">Nuovo Ticket</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><div class="form-group"><label>Titolo *</label><input type="text" id="ticketTitle" placeholder="Es: Perdita rubinetto bagno"></div><div class="form-group"><label>Descrizione</label><textarea id="ticketDesc" placeholder="Descrizione del problema..."></textarea></div><div class="form-group hidden" id="ticketStatusGroup"><label>Stato</label><select id="ticketStatus"><option value="Aperto">🔵 Aperto</option><option value="In lavorazione">🟠 In lavorazione</option><option value="Chiuso">🟢 Chiuso</option></select></div><div class="form-group"><label>Foto</label><input type="file" id="ticketPhoto" accept="image/*" capture="environment" multiple><div id="ticketPhotoPreview" class="photo-preview"></div></div></div><div class="modal-footer"><button class="btn btn-danger hidden" id="delTicketBtn">🗑️ Elimina</button><div style="flex:1"></div><button class="btn btn-secondary modal-close-btn">Annulla</button><button class="btn btn-primary" id="saveTicketBtn">Salva</button></div>
     <div id="confirmModal" class="modal"><div class="modal-content" style="max-width:380px"><div class="modal-header"><div class="modal-title" id="confirmTitle">Conferma</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><p id="confirmMessage"></p></div><div class="modal-footer"><button class="btn btn-secondary modal-close-btn" id="confirmCancelBtn">Annulla</button><button class="btn btn-danger" id="confirmBtn">Elimina</button></div></div></div>
     <div id="allTicketsModal" class="modal"><div class="modal-content" style="max-width:600px"><div class="modal-header"><div class="modal-title">🎫 Tutti i Ticket</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body" id="allTicketsBody"></div></div></div>
     <div id="lightbox" class="lightbox"><button class="lightbox-close">×</button><img id="lightboxImg" src="" alt="Foto"></div>
@@ -338,7 +338,7 @@
             editingTicketId=null;$('ticketModalTitle').textContent='Nuovo Ticket';
             $('ticketTitle').value='';$('ticketDesc').value='';$('ticketStatus').value='Aperto';
             $('ticketPhoto').value='';$('ticketPhotoPreview').innerHTML='';
-            $('ticketStatusGroup').classList.add('hidden');$('ticketModal').classList.add('active');
+            $('ticketStatusGroup').classList.add('hidden');$('delTicketBtn').classList.add('hidden');$('ticketModal').classList.add('active');
         });
         function editTicket(id){
             var t=tickCache.find(function(x){return x.id===id;});if(!t)return;
@@ -346,6 +346,7 @@
             $('ticketTitle').value=t.title;$('ticketDesc').value=t.description||'';
             $('ticketStatus').value=t.status;$('ticketPhoto').value='';
             $('ticketStatusGroup').classList.remove('hidden');
+            $('delTicketBtn').classList.remove('hidden');
             var prev=$('ticketPhotoPreview');
             if(t.photos&&t.photos.length){
                 prev.innerHTML=t.photos.map(function(ph,i){return '<div class="photo-item"><img src="'+ph+'" alt="Foto"><button class="photo-delete rm-ticket-photo" data-tid="'+id+'" data-idx="'+i+'">×</button></div>';}).join('');
@@ -371,6 +372,13 @@
                     return db.collection('tickets').add({propertyId:currentProperty.id,title:title,description:$('ticketDesc').value.trim(),status:'Aperto',photos:np,createdBy:currentUserName,createdAt:new Date().toISOString()});
                 }
             }).then(function(){closeModal('ticketModal');}).catch(function(e){showAlert('Errore: '+e.message);}).finally(function(){btn.disabled=false;btn.textContent='Salva';});
+        });
+
+        $('delTicketBtn').addEventListener('click',function(){
+            if(!editingTicketId)return;
+            showConfirm('Elimina Ticket','Sei sicuro di voler eliminare questo ticket?',function(){
+                db.collection('tickets').doc(editingTicketId).delete().then(function(){closeModal('ticketModal');}).catch(function(e){showAlert('Errore: '+e.message);});
+            });
         });
 
         // All tickets
