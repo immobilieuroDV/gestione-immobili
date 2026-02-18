@@ -115,7 +115,8 @@
     <div id="systemModal" class="modal"><div class="modal-content"><div class="modal-header"><div class="modal-title">Nuovo Impianto</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><div class="form-group"><label>Categoria *</label><select id="systemCategory"><option value="">Seleziona...</option><option value="Elettrico">⚡ Elettrico</option><option value="Idraulico">💧 Idraulico</option><option value="Riscaldamento">🔥 Riscaldamento</option><option value="Condizionamento">❄️ Condizionamento</option><option value="Varie Interni">🏠 Varie Interni</option><option value="Varie Esterni">🌳 Varie Esterni</option></select></div><div class="form-group"><label>Descrizione</label><textarea id="systemDesc" placeholder="Dettagli impianto..."></textarea></div><div class="form-group"><label>Foto Targhetta/Impianto</label><input type="file" id="systemPhoto" accept="image/*" capture="environment" multiple><div id="systemPhotoPreview" class="photo-preview"></div></div></div><div class="modal-footer"><button class="btn btn-secondary modal-close-btn">Annulla</button><button class="btn btn-primary" id="saveSystemBtn">Salva</button></div></div></div>
     <div id="ticketModal" class="modal"><div class="modal-content"><div class="modal-header"><div class="modal-title" id="ticketModalTitle">Nuovo Ticket</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><div class="form-group"><label>Titolo *</label><input type="text" id="ticketTitle" placeholder="Es: Perdita rubinetto bagno"></div><div class="form-group"><label>Descrizione</label><textarea id="ticketDesc" placeholder="Descrizione del problema..."></textarea></div><div class="form-group hidden" id="ticketStatusGroup"><label>Stato</label><select id="ticketStatus"><option value="Aperto">🔵 Aperto</option><option value="In lavorazione">🟠 In lavorazione</option><option value="Chiuso">🟢 Chiuso</option></select></div><div class="form-group"><label>Foto</label><input type="file" id="ticketPhoto" accept="image/*" capture="environment" multiple><div id="ticketPhotoPreview" class="photo-preview"></div></div></div><div class="modal-footer"><button class="btn btn-danger hidden" id="delTicketBtn">🗑️ Elimina</button><div style="flex:1"></div><button class="btn btn-secondary modal-close-btn">Annulla</button><button class="btn btn-primary" id="saveTicketBtn">Salva</button></div></div></div>
     <div id="confirmModal" class="modal"><div class="modal-content" style="max-width:380px"><div class="modal-header"><div class="modal-title" id="confirmTitle">Conferma</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><p id="confirmMessage"></p></div><div class="modal-footer"><button class="btn btn-secondary modal-close-btn" id="confirmCancelBtn">Annulla</button><button class="btn btn-danger" id="confirmBtn">Elimina</button></div></div></div>
-    <div id="allTicketsModal" class="modal"><div class="modal-content" style="max-width:600px"><div class="modal-header"><div class="modal-title">🎫 Tutti i Ticket</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body" id="allTicketsBody"></div></div></div>
+    <div id="allTicketsModal" class="modal"><div class="modal-content" style="max-width:600px"><div class="modal-header"><div class="modal-title">🎫 Tutti i Ticket</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap"><button class="btn btn-sm btn-primary ticket-filter active" data-filter="tutti">Tutti</button><button class="btn btn-sm btn-outline ticket-filter" data-filter="Aperto">🔵 Aperti</button><button class="btn btn-sm btn-outline ticket-filter" data-filter="In lavorazione">🟠 In lavorazione</button><button class="btn btn-sm btn-outline ticket-filter" data-filter="Chiuso">🟢 Chiusi</button></div><div id="allTicketsBody"></div></div></div></div>
+    <div id="settingsModal" class="modal"><div class="modal-content" style="max-width:450px"><div class="modal-header"><div class="modal-title">⚙️ Impostazioni</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><h3 style="margin-bottom:16px">🔑 Cambio Password</h3><div class="form-group"><label>Nuova password</label><input type="password" id="newPassword" placeholder="Minimo 6 caratteri"></div><div class="form-group"><label>Conferma password</label><input type="password" id="confirmPassword" placeholder="Ripeti la password"></div><button class="btn btn-primary btn-block" id="changePwBtn">Cambia Password</button><hr style="margin:24px 0;border:none;border-top:1px solid var(--border)"><h3 style="margin-bottom:16px">📦 Esporta Dati</h3><p class="text-secondary" style="font-size:14px;margin-bottom:12px">Scarica un riepilogo completo di immobili, impianti e ticket.</p><button class="btn btn-outline btn-block" id="exportBtn">📥 Esporta CSV</button><hr style="margin:24px 0;border:none;border-top:1px solid var(--border)"><h3 style="margin-bottom:8px">ℹ️ Info App</h3><p class="text-secondary" style="font-size:14px">Gestione Immobili & Manutenzioni<br>Versione 1.0<br>Utente: <span id="settingsUser"></span></p></div></div></div>
     <div id="lightbox" class="lightbox"><button class="lightbox-close">×</button><img id="lightboxImg" src="" alt="Foto"></div>
 
     <!-- Firebase Compat SDK (global scope, no module issues) -->
@@ -235,7 +236,60 @@
         }
         $('backBtn').addEventListener('click',showDashboard);
         $('navHome').addEventListener('click',showDashboard);
-        $('navSettings').addEventListener('click',function(){showAlert('Funzionalità in sviluppo');});
+        $('navSettings').addEventListener('click',function(){
+            $('settingsUser').textContent=currentUserName+' ('+currentUser.email+')';
+            $('newPassword').value='';$('confirmPassword').value='';
+            $('settingsModal').classList.add('active');
+        });
+
+        // Change password
+        $('changePwBtn').addEventListener('click',function(){
+            var pw=$('newPassword').value,pw2=$('confirmPassword').value;
+            if(!pw||pw.length<6){showAlert('La password deve essere di almeno 6 caratteri');return;}
+            if(pw!==pw2){showAlert('Le password non coincidono');return;}
+            var btn=$('changePwBtn');btn.disabled=true;btn.textContent='Salvataggio...';
+            currentUser.updatePassword(pw).then(function(){
+                $('newPassword').value='';$('confirmPassword').value='';
+                showAlert('Password cambiata con successo!');
+            }).catch(function(e){
+                if(e.code==='auth/requires-recent-login')showAlert('Per sicurezza devi rifare il login prima di cambiare password. Esci e rientra.');
+                else showAlert('Errore: '+e.message);
+            }).finally(function(){btn.disabled=false;btn.textContent='Cambia Password';});
+        });
+
+        // Export CSV
+        $('exportBtn').addEventListener('click',function(){
+            var btn=$('exportBtn');btn.disabled=true;btn.textContent='Esportazione...';
+            Promise.all([
+                db.collection('properties').get(),
+                db.collection('systems').get(),
+                db.collection('tickets').get()
+            ]).then(function(results){
+                var props=results[0].docs.map(function(d){return Object.assign({id:d.id},d.data());});
+                var sys=results[1].docs.map(function(d){return Object.assign({id:d.id},d.data());});
+                var ticks=results[2].docs.map(function(d){return Object.assign({id:d.id},d.data());});
+
+                var csv='IMMOBILI\nNome;Indirizzo;Note\n';
+                props.forEach(function(p){csv+='"'+esc(p.name)+'";"'+(p.address||'')+'";"'+(p.notes||'')+'"\n';});
+
+                csv+='\nIMPIANTI\nImmobile;Categoria;Descrizione\n';
+                sys.forEach(function(s){
+                    var pr=props.find(function(p){return p.id===s.propertyId;});
+                    csv+='"'+(pr?pr.name:'N/D')+'";"'+s.category+'";"'+(s.description||'')+'"\n';
+                });
+
+                csv+='\nTICKET\nImmobile;Titolo;Descrizione;Stato;Creato da;Data\n';
+                ticks.forEach(function(t){
+                    var pr=props.find(function(p){return p.id===t.propertyId;});
+                    csv+='"'+(pr?pr.name:'N/D')+'";"'+t.title+'";"'+(t.description||'')+'";"'+t.status+'";"'+(t.createdBy||'')+'";"'+(t.createdAt?new Date(t.createdAt).toLocaleDateString('it-IT'):'')+'"\n';
+                });
+
+                var blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'});
+                var url=URL.createObjectURL(blob);
+                var a=document.createElement('a');a.href=url;a.download='export_immobili_'+new Date().toISOString().slice(0,10)+'.csv';
+                document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
+            }).catch(function(e){showAlert('Errore: '+e.message);}).finally(function(){btn.disabled=false;btn.textContent='📥 Esporta CSV';});
+        });
         $('fabButton').addEventListener('click',function(){openPropertyModal();});
 
         // Tabs
@@ -382,14 +436,35 @@
         });
 
         // All tickets
+        var currentTicketFilter='tutti';
         $('navTickets').addEventListener('click',function(){
-            var body=$('allTicketsBody');body.innerHTML='<div style="text-align:center;padding:20px">Caricamento...</div>';
+            currentTicketFilter='tutti';
+            document.querySelectorAll('.ticket-filter').forEach(function(b){b.classList.remove('active');b.classList.remove('btn-primary');b.classList.add('btn-outline');});
+            document.querySelector('.ticket-filter[data-filter="tutti"]').classList.add('active');
+            document.querySelector('.ticket-filter[data-filter="tutti"]').classList.remove('btn-outline');
+            document.querySelector('.ticket-filter[data-filter="tutti"]').classList.add('btn-primary');
+            loadAllTickets();
             $('allTicketsModal').classList.add('active');
+        });
+
+        // Ticket filter buttons - use event delegation on modal
+        $('allTicketsModal').addEventListener('click',function(e){
+            var filterBtn=e.target.closest('.ticket-filter');
+            if(!filterBtn)return;
+            currentTicketFilter=filterBtn.dataset.filter;
+            document.querySelectorAll('.ticket-filter').forEach(function(b){b.classList.remove('active');b.classList.remove('btn-primary');b.classList.add('btn-outline');});
+            filterBtn.classList.add('active');filterBtn.classList.remove('btn-outline');filterBtn.classList.add('btn-primary');
+            loadAllTickets();
+        });
+
+        function loadAllTickets(){
+            var body=$('allTicketsBody');body.innerHTML='<div style="text-align:center;padding:20px">Caricamento...</div>';
             db.collection('tickets').get().then(function(snap){
                 var all=snap.docs.map(function(d){return Object.assign({id:d.id},d.data());});
+                if(currentTicketFilter!=='tutti')all=all.filter(function(t){return t.status===currentTicketFilter;});
                 var ord={'Aperto':0,'In lavorazione':1,'Chiuso':2};
                 all.sort(function(a,b){return(ord[a.status]||0)-(ord[b.status]||0);});
-                if(!all.length){body.innerHTML='<div class="empty-state"><p>Nessun ticket</p></div>';return;}
+                if(!all.length){body.innerHTML='<div class="empty-state"><p>Nessun ticket'+(currentTicketFilter!=='tutti'?' con stato "'+currentTicketFilter+'"':'')+'</p></div>';return;}
                 body.innerHTML=all.map(function(t){
                     var pr=propsCache.find(function(p){return p.id===t.propertyId;});
                     var bc=t.status==='Aperto'?'badge-open':t.status==='In lavorazione'?'badge-progress':'badge-closed';
@@ -398,7 +473,7 @@
                     return '<div class="ticket-item '+css+'" style="cursor:default"><div class="ticket-header"><div class="ticket-title">'+esc(t.title)+'</div><span class="badge '+bc+'">'+ic+' '+t.status+'</span></div><div class="ticket-meta" style="margin-bottom:8px"><span>🏠 '+(pr?esc(pr.name):'N/D')+'</span><span>👤 '+esc(t.createdBy||'')+'</span><span>📅 '+(t.createdAt?new Date(t.createdAt).toLocaleDateString('it-IT'):'')+'</span></div>'+(t.description?'<div class="ticket-desc">'+esc(t.description)+'</div>':'')+'</div>';
                 }).join('');
             }).catch(function(){body.innerHTML='<div style="text-align:center;padding:20px">Errore</div>';});
-        });
+        }
 
         // Photos
         function processPhotos(inputId){
