@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#2e7d32">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Gestione Immobili & Manutenzioni</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--primary:#2e7d32;--primary-dark:#1b5e20;--primary-light:#e8f5e9;--secondary:#424242;--success:#4caf50;--warning:#ff9800;--danger:#f44336;--bg:#f5f5f5;--card:#fff;--text:#212121;--text-secondary:#757575;--border:#e0e0e0;--shadow:0 2px 4px rgba(0,0,0,.1);--shadow-lg:0 4px 12px rgba(0,0,0,.15)}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;padding-bottom:70px;-webkit-tap-highlight-color:transparent}
+        .header{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;padding:16px 20px;box-shadow:var(--shadow-lg);position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between}
+        .header h1{font-size:20px;font-weight:600}.header-actions{display:flex;gap:12px;align-items:center}
+        .user-badge{background:rgba(255,255,255,.2);padding:6px 12px;border-radius:20px;font-size:13px}
+        .login-container{max-width:400px;margin:80px auto;padding:20px}
+        .login-card{background:var(--card);padding:32px;border-radius:12px;box-shadow:var(--shadow-lg)}
+        .login-title{text-align:center;font-size:24px;margin-bottom:24px;color:var(--primary)}
+        .login-error{background:#ffebee;color:#c62828;padding:10px 14px;border-radius:8px;font-size:14px;margin-bottom:16px;display:none}
+        .login-error.visible{display:block;animation:fadeIn .3s}
+        .loading-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,.85);z-index:500;align-items:center;justify-content:center;flex-direction:column;gap:16px}
+        .loading-overlay.active{display:flex}
+        .spinner{width:40px;height:40px;border:4px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .container{max-width:1200px;margin:0 auto;padding:20px}
+        .card{background:var(--card);border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:var(--shadow);transition:all .3s}
+        .card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+        .property-card{cursor:pointer;border:2px solid transparent}.property-card:active{transform:scale(.98)}
+        .property-title{font-size:18px;font-weight:600;color:var(--primary);margin-bottom:4px}
+        .property-address{color:var(--text-secondary);font-size:14px;margin-bottom:8px}
+        .tabs{display:flex;border-bottom:2px solid var(--border);margin-bottom:20px;overflow-x:auto}
+        .tab{padding:12px 20px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;color:var(--text-secondary);font-weight:500;transition:all .3s}
+        .tab.active{color:var(--primary);border-bottom-color:var(--primary)}
+        .tab-content{display:none}.tab-content.active{display:block;animation:fadeIn .3s}
+        .form-group{margin-bottom:20px}
+        label{display:block;margin-bottom:8px;font-weight:500;color:var(--text)}
+        input,textarea,select{width:100%;padding:12px;border:1px solid var(--border);border-radius:8px;font-size:15px;font-family:inherit;transition:all .3s}
+        input:focus,textarea:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(46,125,50,.1)}
+        textarea{resize:vertical;min-height:100px}
+        .btn{padding:12px 24px;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;transition:all .3s;display:inline-flex;align-items:center;gap:8px;justify-content:center}
+        .btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--primary-dark)}.btn-primary:disabled{background:#a5d6a7;cursor:not-allowed}
+        .btn-secondary{background:var(--secondary);color:#fff}.btn-danger{background:var(--danger);color:#fff}
+        .btn-outline{background:transparent;border:2px solid var(--primary);color:var(--primary)}
+        .btn-block{width:100%}.btn-sm{padding:8px 16px;font-size:13px}
+        .btn-icon{width:40px;height:40px;padding:0;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:20px;background:transparent;border:none;cursor:pointer;color:var(--text-secondary)}
+        .fab{position:fixed;bottom:80px;right:20px;width:56px;height:56px;border-radius:50%;background:var(--primary);color:#fff;border:none;font-size:24px;cursor:pointer;box-shadow:var(--shadow-lg);z-index:50;transition:all .3s}
+        .fab:hover{transform:scale(1.1)}.fab.hidden{display:none}
+        .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);box-shadow:0 -2px 10px rgba(0,0,0,.1);display:flex;justify-content:space-around;padding:8px 0;z-index:100}
+        .nav-item{display:flex;flex-direction:column;align-items:center;padding:8px 16px;cursor:pointer;color:var(--text-secondary);transition:all .3s;flex:1}
+        .nav-item.active{color:var(--primary)}.nav-icon{font-size:24px;margin-bottom:4px}.nav-label{font-size:12px;font-weight:500}
+        .modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center;padding:20px}
+        .modal.active{display:flex;animation:fadeIn .3s}
+        .modal-content{background:var(--card);border-radius:12px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto;animation:slideUp .3s}
+        .modal-header{padding:20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+        .modal-title{font-size:20px;font-weight:600}.modal-body{padding:20px}
+        .modal-footer{padding:20px;border-top:1px solid var(--border);display:flex;gap:12px;justify-content:flex-end}
+        .empty-state{text-align:center;padding:60px 20px;color:var(--text-secondary)}.empty-icon{font-size:64px;margin-bottom:16px;opacity:.3}
+        .badge{display:inline-block;padding:4px 12px;border-radius:12px;font-size:12px;font-weight:600}
+        .badge-open{background:#e8f5e9;color:#2e7d32}.badge-progress{background:#fff3e0;color:#f57c00}.badge-closed{background:#e8f5e9;color:#388e3c}
+        .system-item{padding:16px;border:1px solid var(--border);border-radius:8px;margin-bottom:12px}
+        .system-header{display:flex;justify-content:space-between;align-items:start;margin-bottom:8px}
+        .system-category{font-weight:600;color:var(--primary)}.system-desc{color:var(--text-secondary);font-size:14px}
+        .ticket-item{padding:16px;border-left:4px solid var(--border);background:var(--bg);border-radius:8px;margin-bottom:12px;cursor:pointer;transition:all .3s}
+        .ticket-item:hover{box-shadow:var(--shadow)}
+        .ticket-item.open{border-left-color:var(--primary)}.ticket-item.in-lavorazione{border-left-color:var(--warning)}.ticket-item.chiuso{border-left-color:var(--success)}
+        .ticket-header{display:flex;justify-content:space-between;align-items:start;margin-bottom:8px}
+        .ticket-title{font-weight:600}.ticket-desc{color:var(--text-secondary);font-size:14px;margin-bottom:8px}
+        .ticket-meta{display:flex;gap:12px;font-size:13px;color:var(--text-secondary);flex-wrap:wrap}
+        .photo-preview{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:12px;margin-top:12px}
+        .photo-item{position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden}
+        .photo-item img{width:100%;height:100%;object-fit:cover;cursor:pointer}
+        .photo-delete{position:absolute;top:4px;right:4px;background:var(--danger);color:#fff;border:none;width:24px;height:24px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center}
+        .lightbox{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.9);z-index:300;align-items:center;justify-content:center;cursor:pointer}
+        .lightbox.active{display:flex;animation:fadeIn .3s}
+        .lightbox img{max-width:90vw;max-height:90vh;object-fit:contain;border-radius:8px}
+        .lightbox-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.2);color:#fff;border:none;width:40px;height:40px;border-radius:50%;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+        .sync-indicator{position:fixed;top:70px;right:16px;padding:6px 12px;border-radius:20px;font-size:12px;z-index:150;background:var(--primary-light);color:var(--primary);display:none}
+        .sync-indicator.active{display:block;animation:fadeIn .3s}
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+        .mt-2{margin-top:16px}.mb-2{margin-bottom:16px}.text-secondary{color:var(--text-secondary)}.hidden{display:none!important}
+        @media(max-width:768px){.container{padding:12px}.card{padding:16px}}
+    </style>
+</head>
+<body>
+    <div id="loadingOverlay" class="loading-overlay"><div class="spinner"></div><div id="loadingText">Caricamento...</div></div>
+    <div id="syncIndicator" class="sync-indicator">✓ Sincronizzato</div>
+
+    <div id="loginScreen" class="login-container">
+        <div class="login-card">
+            <div class="login-title">🏢 Gestione Immobili</div>
+            <div class="login-error" id="loginError"></div>
+            <div class="form-group"><label>Email</label><input type="email" id="loginEmail" placeholder="Email"></div>
+            <div class="form-group"><label>Password</label><input type="password" id="loginPassword" placeholder="Password"></div>
+            <button class="btn btn-primary btn-block" id="loginBtn">Accedi</button>
+        </div>
+    </div>
+
+    <div id="mainApp" class="hidden">
+        <div class="header"><h1>🏢 Immobili</h1><div class="header-actions"><span class="user-badge" id="userBadge"></span><button class="btn btn-sm btn-danger" id="logoutBtn">Esci</button></div></div>
+        <div id="dashboardView" class="container"><div id="propertiesList"></div><div id="emptyState" class="empty-state hidden"><div class="empty-icon">🏠</div><h3>Nessun immobile</h3><p>Aggiungi il primo immobile con +</p></div></div>
+        <div id="propertyDetailView" class="container hidden">
+            <button class="btn btn-outline mb-2" id="backBtn">← Indietro</button>
+            <div class="tabs"><div class="tab active" data-tab="info">📋 Info</div><div class="tab" data-tab="systems">⚙️ Impianti</div><div class="tab" data-tab="tickets">🎫 Ticket</div></div>
+            <div id="tab-info" class="tab-content active"><div class="card"><h3 class="mb-2">Anagrafica Immobile</h3><div id="propertyInfo"></div><div style="display:flex;gap:12px;margin-top:20px;flex-wrap:wrap"><button class="btn btn-primary" id="editPropBtn">✏️ Modifica</button><button class="btn btn-danger" id="delPropBtn">🗑️ Elimina</button></div></div></div>
+            <div id="tab-systems" class="tab-content"><div id="systemsList"></div><button class="btn btn-primary btn-block mt-2" id="addSystemBtn">+ Aggiungi Impianto</button></div>
+            <div id="tab-tickets" class="tab-content"><div id="ticketsList"></div><button class="btn btn-primary btn-block mt-2" id="addTicketBtn">+ Nuovo Ticket</button></div>
+        </div>
+        <button class="fab" id="fabButton">+</button>
+        <div class="bottom-nav"><div class="nav-item active" id="navHome"><div class="nav-icon">🏠</div><div class="nav-label">Immobili</div></div><div class="nav-item" id="navTickets"><div class="nav-icon">🎫</div><div class="nav-label">Tutti i Ticket</div></div><div class="nav-item" id="navSettings"><div class="nav-icon">⚙️</div><div class="nav-label">Impostazioni</div></div></div>
+    </div>
+
+    <div id="propertyModal" class="modal"><div class="modal-content"><div class="modal-header"><div class="modal-title" id="propertyModalTitle">Nuovo Immobile</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><div class="form-group"><label>Nome *</label><input type="text" id="propName" placeholder="Es: Appartamento Via Roma 10"></div><div class="form-group"><label>Indirizzo</label><input type="text" id="propAddress" placeholder="Via Roma 10, Milano"></div><div class="form-group"><label>Note</label><textarea id="propNotes" placeholder="Note aggiuntive..."></textarea></div></div><div class="modal-footer"><button class="btn btn-secondary modal-close-btn">Annulla</button><button class="btn btn-primary" id="savePropBtn">Salva</button></div></div></div>
+    <div id="systemModal" class="modal"><div class="modal-content"><div class="modal-header"><div class="modal-title">Nuovo Impianto</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><div class="form-group"><label>Categoria *</label><select id="systemCategory"><option value="">Seleziona...</option><option value="Elettrico">⚡ Elettrico</option><option value="Idraulico">💧 Idraulico</option><option value="Riscaldamento">🔥 Riscaldamento</option><option value="Condizionamento">❄️ Condizionamento</option><option value="Varie Interni">🏠 Varie Interni</option><option value="Varie Esterni">🌳 Varie Esterni</option></select></div><div class="form-group"><label>Descrizione</label><textarea id="systemDesc" placeholder="Dettagli impianto..."></textarea></div><div class="form-group"><label>Foto Targhetta/Impianto</label><input type="file" id="systemPhoto" accept="image/*" capture="environment" multiple><div id="systemPhotoPreview" class="photo-preview"></div></div></div><div class="modal-footer"><button class="btn btn-secondary modal-close-btn">Annulla</button><button class="btn btn-primary" id="saveSystemBtn">Salva</button></div></div></div>
+    <div id="ticketModal" class="modal"><div class="modal-content"><div class="modal-header"><div class="modal-title" id="ticketModalTitle">Nuovo Ticket</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><div class="form-group"><label>Titolo *</label><input type="text" id="ticketTitle" placeholder="Es: Perdita rubinetto bagno"></div><div class="form-group"><label>Descrizione</label><textarea id="ticketDesc" placeholder="Descrizione del problema..."></textarea></div><div class="form-group hidden" id="ticketStatusGroup"><label>Stato</label><select id="ticketStatus"><option value="Aperto">🔵 Aperto</option><option value="In lavorazione">🟠 In lavorazione</option><option value="Chiuso">🟢 Chiuso</option></select></div><div class="form-group"><label>Foto</label><input type="file" id="ticketPhoto" accept="image/*" capture="environment" multiple><div id="ticketPhotoPreview" class="photo-preview"></div></div></div><div class="modal-footer"><button class="btn btn-secondary modal-close-btn">Annulla</button><button class="btn btn-primary" id="saveTicketBtn">Salva</button></div></div></div>
+    <div id="confirmModal" class="modal"><div class="modal-content" style="max-width:380px"><div class="modal-header"><div class="modal-title" id="confirmTitle">Conferma</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><p id="confirmMessage"></p></div><div class="modal-footer"><button class="btn btn-secondary modal-close-btn" id="confirmCancelBtn">Annulla</button><button class="btn btn-danger" id="confirmBtn">Elimina</button></div></div></div>
+    <div id="allTicketsModal" class="modal"><div class="modal-content" style="max-width:600px"><div class="modal-header"><div class="modal-title">🎫 Tutti i Ticket</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body" id="allTicketsBody"></div></div></div>
+    <div id="lightbox" class="lightbox"><button class="lightbox-close">×</button><img id="lightboxImg" src="" alt="Foto"></div>
+
+    <!-- Firebase Compat SDK (global scope, no module issues) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script>
+    (function(){
+        firebase.initializeApp({
+            apiKey:"AIzaSyDt4fxlkdgVB4X5In19OLpi1er_XfAcggg",
+            authDomain:"gestione-immobili-323de.firebaseapp.com",
+            projectId:"gestione-immobili-323de",
+            storageBucket:"gestione-immobili-323de.firebasestorage.app",
+            messagingSenderId:"666147711598",
+            appId:"1:666147711598:web:6938f68a570185dc09547f"
+        });
+        var db=firebase.firestore(), auth=firebase.auth();
+        var USER_NAMES={'dv@immobili.app':'DV','ca@immobili.app':'CA'};
+        var currentUser=null,currentUserName='',currentProperty=null,editingPropertyId=null,editingTicketId=null;
+        var unsubProps=null,unsubSys=null,unsubTick=null;
+        var propsCache=[],sysCache=[],tickCache=[];
+
+        // Helpers
+        function $(id){return document.getElementById(id);}
+        function esc(t){if(!t)return'';var d=document.createElement('div');d.textContent=t;return d.innerHTML;}
+        function showLoading(t){$('loadingText').textContent=t||'Caricamento...';$('loadingOverlay').classList.add('active');}
+        function hideLoading(){$('loadingOverlay').classList.remove('active');}
+        function showSync(){var el=$('syncIndicator');el.classList.add('active');setTimeout(function(){el.classList.remove('active');},1500);}
+        function closeModal(id){$(id).classList.remove('active');}
+        var confirmCb=null;
+        function showConfirm(title,msg,cb){
+            $('confirmTitle').textContent=title;$('confirmMessage').textContent=msg;
+            $('confirmBtn').style.display='';$('confirmCancelBtn').textContent='Annulla';
+            confirmCb=cb;$('confirmModal').classList.add('active');
+        }
+        function showAlert(msg){
+            $('confirmTitle').textContent='Attenzione';$('confirmMessage').textContent=msg;
+            $('confirmBtn').style.display='none';$('confirmCancelBtn').textContent='OK';
+            confirmCb=null;$('confirmModal').classList.add('active');
+        }
+        $('confirmBtn').addEventListener('click',function(){var cb=confirmCb;closeModal('confirmModal');confirmCb=null;if(cb)cb();});
+
+        // Close modals
+        document.querySelectorAll('.modal-close-btn').forEach(function(btn){btn.addEventListener('click',function(){btn.closest('.modal').classList.remove('active');});});
+        document.querySelectorAll('.modal').forEach(function(m){m.addEventListener('click',function(e){if(e.target===m)m.classList.remove('active');});});
+        document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.querySelectorAll('.modal.active').forEach(function(m){m.classList.remove('active');});$('lightbox').classList.remove('active');}});
+
+        // Lightbox
+        $('lightbox').addEventListener('click',function(){$('lightbox').classList.remove('active');});
+        function viewImage(src){$('lightboxImg').src=src;$('lightbox').classList.add('active');}
+
+        // Auth
+        auth.onAuthStateChanged(function(user){
+            hideLoading();
+            if(user){currentUser=user;currentUserName=USER_NAMES[user.email]||user.email;showApp();}
+            else{currentUser=null;$('loginScreen').classList.remove('hidden');$('mainApp').classList.add('hidden');}
+        });
+
+        $('loginBtn').addEventListener('click',function(){
+            var email=$('loginEmail').value.trim(),pw=$('loginPassword').value,err=$('loginError'),btn=$('loginBtn');
+            err.classList.remove('visible');
+            if(!email){err.textContent="Inserisci l'email";err.classList.add('visible');return;}
+            if(!pw){err.textContent='Inserisci la password';err.classList.add('visible');return;}
+            btn.disabled=true;btn.textContent='Accesso...';
+            auth.signInWithEmailAndPassword(email,pw).catch(function(e){
+                err.textContent=e.code==='auth/invalid-credential'?'Credenziali errate!':'Errore: '+e.message;
+                err.classList.add('visible');
+            }).finally(function(){btn.disabled=false;btn.textContent='Accedi';});
+        });
+        $('loginPassword').addEventListener('keydown',function(e){if(e.key==='Enter')$('loginBtn').click();});
+        $('logoutBtn').addEventListener('click',function(){[unsubProps,unsubSys,unsubTick].forEach(function(u){if(u)u();});auth.signOut();});
+
+        function showApp(){
+            $('loginScreen').classList.add('hidden');$('mainApp').classList.remove('hidden');
+            $('userBadge').textContent=currentUserName;
+            showDashboard();listenProps();seedProperties();
+        }
+
+        // Realtime
+        function listenProps(){
+            if(unsubProps)unsubProps();
+            unsubProps=db.collection('properties').orderBy('name').onSnapshot(function(snap){
+                propsCache=snap.docs.map(function(d){return Object.assign({id:d.id},d.data());});
+                renderProperties();
+                if(currentProperty){currentProperty=propsCache.find(function(p){return p.id===currentProperty.id;});if(currentProperty)renderDetail();}
+                showSync();
+            });
+        }
+        function listenSys(pid){
+            if(unsubSys)unsubSys();
+            unsubSys=db.collection('systems').where('propertyId','==',pid).onSnapshot(function(snap){
+                sysCache=snap.docs.map(function(d){return Object.assign({id:d.id},d.data());});
+                renderSystems();showSync();
+            });
+        }
+        function listenTick(pid){
+            if(unsubTick)unsubTick();
+            unsubTick=db.collection('tickets').where('propertyId','==',pid).onSnapshot(function(snap){
+                tickCache=snap.docs.map(function(d){return Object.assign({id:d.id},d.data());});
+                renderTickets();showSync();
+            });
+        }
+
+        // Nav
+        function showDashboard(){
+            $('dashboardView').classList.remove('hidden');$('propertyDetailView').classList.add('hidden');
+            document.querySelector('.header h1').textContent='🏢 Immobili';
+            $('fabButton').classList.remove('hidden');currentProperty=null;
+            if(unsubSys){unsubSys();unsubSys=null;}if(unsubTick){unsubTick();unsubTick=null;}
+            renderProperties();
+        }
+        function viewProperty(id){
+            currentProperty=propsCache.find(function(p){return p.id===id;});if(!currentProperty)return;
+            $('dashboardView').classList.add('hidden');$('propertyDetailView').classList.remove('hidden');
+            document.querySelector('.header h1').textContent=currentProperty.name;
+            $('fabButton').classList.add('hidden');switchTab('info');renderDetail();listenSys(id);listenTick(id);
+        }
+        $('backBtn').addEventListener('click',showDashboard);
+        $('navHome').addEventListener('click',showDashboard);
+        $('navSettings').addEventListener('click',function(){showAlert('Funzionalità in sviluppo');});
+        $('fabButton').addEventListener('click',function(){openPropertyModal();});
+
+        // Tabs
+        function switchTab(name){
+            document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
+            document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});
+            document.querySelector('[data-tab="'+name+'"]').classList.add('active');
+            $('tab-'+name).classList.add('active');
+        }
+        document.querySelectorAll('.tab').forEach(function(t){t.addEventListener('click',function(){switchTab(t.dataset.tab);});});
+
+        // Render
+        function renderProperties(){
+            var list=$('propertiesList'),empty=$('emptyState');
+            if(!propsCache.length){list.innerHTML='';empty.classList.remove('hidden');return;}
+            empty.classList.add('hidden');
+            list.innerHTML=propsCache.map(function(p){return '<div class="card property-card" data-pid="'+p.id+'"><div><div class="property-title">'+esc(p.name)+'</div>'+(p.address?'<div class="property-address">📍 '+esc(p.address)+'</div>':'')+'</div>'+(p.notes?'<div class="text-secondary" style="font-size:14px">'+esc(p.notes)+'</div>':'')+'</div>';}).join('');
+            list.querySelectorAll('.property-card').forEach(function(c){c.addEventListener('click',function(){viewProperty(c.dataset.pid);});});
+        }
+        function renderDetail(){
+            if(!currentProperty)return;
+            $('propertyInfo').innerHTML='<p><strong>Nome:</strong> '+esc(currentProperty.name)+'</p>'+(currentProperty.address?'<p><strong>Indirizzo:</strong> '+esc(currentProperty.address)+'</p>':'')+(currentProperty.notes?'<p><strong>Note:</strong> '+esc(currentProperty.notes)+'</p>':'')+(currentProperty.createdAt?'<p class="text-secondary" style="font-size:13px;margin-top:12px">Creato il '+new Date(currentProperty.createdAt).toLocaleDateString('it-IT')+'</p>':'');
+        }
+        function renderSystems(){
+            var list=$('systemsList');
+            if(!sysCache.length){list.innerHTML='<div class="empty-state"><div class="empty-icon">⚙️</div><p>Nessun impianto registrato</p></div>';return;}
+            list.innerHTML=sysCache.map(function(s){return '<div class="system-item"><div class="system-header"><div class="system-category">'+esc(s.category)+'</div><button class="btn btn-sm btn-danger del-sys-btn" data-sid="'+s.id+'">🗑️</button></div>'+(s.description?'<div class="system-desc">'+esc(s.description)+'</div>':'')+(s.photos&&s.photos.length?'<div class="photo-preview mt-2">'+s.photos.map(function(ph){return '<div class="photo-item"><img src="'+ph+'" alt="Foto" class="photo-click"></div>';}).join('')+'</div>':'')+'</div>';}).join('');
+            list.querySelectorAll('.del-sys-btn').forEach(function(b){b.addEventListener('click',function(e){e.stopPropagation();deleteSystem(b.dataset.sid);});});
+            list.querySelectorAll('.photo-click').forEach(function(img){img.addEventListener('click',function(e){e.stopPropagation();viewImage(img.src);});});
+        }
+        function renderTickets(){
+            var list=$('ticketsList');
+            if(!tickCache.length){list.innerHTML='<div class="empty-state"><div class="empty-icon">🎫</div><p>Nessun ticket</p></div>';return;}
+            var ord={'Aperto':0,'In lavorazione':1,'Chiuso':2};
+            var sorted=tickCache.slice().sort(function(a,b){return(ord[a.status]||0)-(ord[b.status]||0);});
+            list.innerHTML=sorted.map(function(t){
+                var css=t.status==='Aperto'?'open':t.status==='In lavorazione'?'in-lavorazione':'chiuso';
+                var bc=t.status==='Aperto'?'badge-open':t.status==='In lavorazione'?'badge-progress':'badge-closed';
+                var ic=t.status==='Aperto'?'🔵':t.status==='In lavorazione'?'🟠':'🟢';
+                return '<div class="ticket-item '+css+'" data-tid="'+t.id+'"><div class="ticket-header"><div class="ticket-title">'+esc(t.title)+'</div><span class="badge '+bc+'">'+ic+' '+t.status+'</span></div>'+(t.description?'<div class="ticket-desc">'+esc(t.description)+'</div>':'')+'<div class="ticket-meta"><span>👤 '+esc(t.createdBy||'')+'</span><span>📅 '+(t.createdAt?new Date(t.createdAt).toLocaleDateString('it-IT'):'')+'</span></div>'+(t.photos&&t.photos.length?'<div class="photo-preview mt-2">'+t.photos.map(function(ph){return '<div class="photo-item"><img src="'+ph+'" alt="Foto" class="photo-click"></div>';}).join('')+'</div>':'')+'</div>';
+            }).join('');
+            list.querySelectorAll('.ticket-item').forEach(function(el){el.addEventListener('click',function(){editTicket(el.dataset.tid);});});
+            list.querySelectorAll('.photo-click').forEach(function(img){img.addEventListener('click',function(e){e.stopPropagation();viewImage(img.src);});});
+        }
+
+        // Property CRUD
+        function openPropertyModal(){
+            editingPropertyId=null;$('propertyModalTitle').textContent='Nuovo Immobile';
+            $('propName').value='';$('propAddress').value='';$('propNotes').value='';
+            $('propertyModal').classList.add('active');
+        }
+        $('editPropBtn').addEventListener('click',function(){
+            editingPropertyId=currentProperty.id;$('propertyModalTitle').textContent='Modifica Immobile';
+            $('propName').value=currentProperty.name;$('propAddress').value=currentProperty.address||'';
+            $('propNotes').value=currentProperty.notes||'';$('propertyModal').classList.add('active');
+        });
+        $('savePropBtn').addEventListener('click',function(){
+            var name=$('propName').value.trim();if(!name){showAlert('Il nome è obbligatorio!');return;}
+            var btn=$('savePropBtn');btn.disabled=true;btn.textContent='Salvataggio...';
+            var data={name:name,address:$('propAddress').value.trim(),notes:$('propNotes').value.trim()};
+            var p=editingPropertyId?db.collection('properties').doc(editingPropertyId).update(data):(data.createdAt=new Date().toISOString(),db.collection('properties').add(data));
+            p.then(function(){closeModal('propertyModal');}).catch(function(e){showAlert('Errore: '+e.message);}).finally(function(){btn.disabled=false;btn.textContent='Salva';});
+        });
+        $('delPropBtn').addEventListener('click',function(){
+            showConfirm('Elimina Immobile','Sei sicuro? Verranno eliminati anche impianti e ticket.',function(){
+                showLoading('Eliminazione...');
+                var batch1=db.batch(),batch2=db.batch();
+                db.collection('systems').where('propertyId','==',currentProperty.id).get().then(function(snap){
+                    snap.forEach(function(d){batch1.delete(d.ref);});return batch1.commit();
+                }).then(function(){
+                    return db.collection('tickets').where('propertyId','==',currentProperty.id).get();
+                }).then(function(snap){
+                    snap.forEach(function(d){batch2.delete(d.ref);});return batch2.commit();
+                }).then(function(){
+                    return db.collection('properties').doc(currentProperty.id).delete();
+                }).then(function(){showDashboard();}).catch(function(e){showAlert('Errore: '+e.message);}).finally(hideLoading);
+            });
+        });
+
+        // System CRUD
+        $('addSystemBtn').addEventListener('click',function(){
+            $('systemCategory').value='';$('systemDesc').value='';$('systemPhoto').value='';$('systemPhotoPreview').innerHTML='';
+            $('systemModal').classList.add('active');
+        });
+        $('saveSystemBtn').addEventListener('click',function(){
+            var cat=$('systemCategory').value;if(!cat){showAlert('Seleziona una categoria!');return;}
+            var btn=$('saveSystemBtn');btn.disabled=true;btn.textContent='Salvataggio...';
+            processPhotos('systemPhoto').then(function(photos){
+                return db.collection('systems').add({propertyId:currentProperty.id,category:cat,description:$('systemDesc').value.trim(),photos:photos,createdAt:new Date().toISOString()});
+            }).then(function(){closeModal('systemModal');}).catch(function(e){showAlert('Errore: '+e.message);}).finally(function(){btn.disabled=false;btn.textContent='Salva';});
+        });
+        function deleteSystem(id){
+            showConfirm('Elimina Impianto','Eliminare questo impianto?',function(){
+                db.collection('systems').doc(id).delete().catch(function(e){showAlert('Errore: '+e.message);});
+            });
+        }
+
+        // Ticket CRUD
+        $('addTicketBtn').addEventListener('click',function(){
+            editingTicketId=null;$('ticketModalTitle').textContent='Nuovo Ticket';
+            $('ticketTitle').value='';$('ticketDesc').value='';$('ticketStatus').value='Aperto';
+            $('ticketPhoto').value='';$('ticketPhotoPreview').innerHTML='';
+            $('ticketStatusGroup').classList.add('hidden');$('ticketModal').classList.add('active');
+        });
+        function editTicket(id){
+            var t=tickCache.find(function(x){return x.id===id;});if(!t)return;
+            editingTicketId=id;$('ticketModalTitle').textContent='Modifica Ticket';
+            $('ticketTitle').value=t.title;$('ticketDesc').value=t.description||'';
+            $('ticketStatus').value=t.status;$('ticketPhoto').value='';
+            $('ticketStatusGroup').classList.remove('hidden');
+            var prev=$('ticketPhotoPreview');
+            if(t.photos&&t.photos.length){
+                prev.innerHTML=t.photos.map(function(ph,i){return '<div class="photo-item"><img src="'+ph+'" alt="Foto"><button class="photo-delete rm-ticket-photo" data-tid="'+id+'" data-idx="'+i+'">×</button></div>';}).join('');
+                prev.querySelectorAll('.rm-ticket-photo').forEach(function(b){b.addEventListener('click',function(e){e.stopPropagation();removeTicketPhoto(b.dataset.tid,parseInt(b.dataset.idx));});});
+            }else prev.innerHTML='';
+            $('ticketModal').classList.add('active');
+        }
+        function removeTicketPhoto(tid,idx){
+            var t=tickCache.find(function(x){return x.id===tid;});if(!t||!t.photos)return;
+            var np=t.photos.slice();np.splice(idx,1);
+            db.collection('tickets').doc(tid).update({photos:np}).then(function(){editTicket(tid);}).catch(function(e){showAlert('Errore: '+e.message);});
+        }
+        $('saveTicketBtn').addEventListener('click',function(){
+            var title=$('ticketTitle').value.trim();if(!title){showAlert('Il titolo è obbligatorio!');return;}
+            var btn=$('saveTicketBtn');btn.disabled=true;btn.textContent='Salvataggio...';
+            processPhotos('ticketPhoto').then(function(np){
+                if(editingTicketId){
+                    var t=tickCache.find(function(x){return x.id===editingTicketId;});
+                    var ud={title:title,description:$('ticketDesc').value.trim(),status:$('ticketStatus').value};
+                    if(np.length)ud.photos=(t.photos||[]).concat(np);
+                    return db.collection('tickets').doc(editingTicketId).update(ud);
+                }else{
+                    return db.collection('tickets').add({propertyId:currentProperty.id,title:title,description:$('ticketDesc').value.trim(),status:'Aperto',photos:np,createdBy:currentUserName,createdAt:new Date().toISOString()});
+                }
+            }).then(function(){closeModal('ticketModal');}).catch(function(e){showAlert('Errore: '+e.message);}).finally(function(){btn.disabled=false;btn.textContent='Salva';});
+        });
+
+        // All tickets
+        $('navTickets').addEventListener('click',function(){
+            var body=$('allTicketsBody');body.innerHTML='<div style="text-align:center;padding:20px">Caricamento...</div>';
+            $('allTicketsModal').classList.add('active');
+            db.collection('tickets').get().then(function(snap){
+                var all=snap.docs.map(function(d){return Object.assign({id:d.id},d.data());});
+                var ord={'Aperto':0,'In lavorazione':1,'Chiuso':2};
+                all.sort(function(a,b){return(ord[a.status]||0)-(ord[b.status]||0);});
+                if(!all.length){body.innerHTML='<div class="empty-state"><p>Nessun ticket</p></div>';return;}
+                body.innerHTML=all.map(function(t){
+                    var pr=propsCache.find(function(p){return p.id===t.propertyId;});
+                    var bc=t.status==='Aperto'?'badge-open':t.status==='In lavorazione'?'badge-progress':'badge-closed';
+                    var ic=t.status==='Aperto'?'🔵':t.status==='In lavorazione'?'🟠':'🟢';
+                    var css=t.status==='Aperto'?'open':t.status==='In lavorazione'?'in-lavorazione':'chiuso';
+                    return '<div class="ticket-item '+css+'" style="cursor:default"><div class="ticket-header"><div class="ticket-title">'+esc(t.title)+'</div><span class="badge '+bc+'">'+ic+' '+t.status+'</span></div><div class="ticket-meta" style="margin-bottom:8px"><span>🏠 '+(pr?esc(pr.name):'N/D')+'</span><span>👤 '+esc(t.createdBy||'')+'</span><span>📅 '+(t.createdAt?new Date(t.createdAt).toLocaleDateString('it-IT'):'')+'</span></div>'+(t.description?'<div class="ticket-desc">'+esc(t.description)+'</div>':'')+'</div>';
+                }).join('');
+            }).catch(function(){body.innerHTML='<div style="text-align:center;padding:20px">Errore</div>';});
+        });
+
+        // Photos
+        function processPhotos(inputId){
+            var files=$(inputId).files,promises=[];
+            for(var i=0;i<files.length;i++)promises.push(compressImage(files[i],600,0.5));
+            return Promise.all(promises);
+        }
+        function compressImage(file,maxSz,qual){
+            return new Promise(function(res,rej){
+                var r=new FileReader();r.onload=function(e){var img=new Image();img.onload=function(){
+                    var c=document.createElement('canvas'),w=img.width,h=img.height;
+                    if(w>maxSz||h>maxSz){if(w>h){h=Math.round(h*maxSz/w);w=maxSz;}else{w=Math.round(w*maxSz/h);h=maxSz;}}
+                    c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);res(c.toDataURL('image/jpeg',qual));
+                };img.onerror=rej;img.src=e.target.result;};r.onerror=rej;r.readAsDataURL(file);});
+        }
+        $('systemPhoto').addEventListener('change',function(e){prevPhotos(e.target.files,'systemPhotoPreview');});
+        $('ticketPhoto').addEventListener('change',function(e){prevPhotos(e.target.files,'ticketPhotoPreview',true);});
+        function prevPhotos(files,pid,append){
+            var p=$(pid);if(!append)p.innerHTML='';
+            Array.from(files).forEach(function(f){var r=new FileReader();r.onload=function(e){var d=document.createElement('div');d.className='photo-item';d.innerHTML='<img src="'+e.target.result+'" alt="Preview">';p.appendChild(d);};r.readAsDataURL(f);});
+        }
+
+        // Seed
+        function seedProperties(){
+            db.collection('properties').get().then(function(snap){
+                if(snap.size>0)return;
+                showLoading('Caricamento immobili...');
+                var batch=db.batch();
+                var props=[
+                    {name:"BP",address:"Vicolo del Bel Poggio, 134 - ROMA",notes:"SEDE"},
+                    {name:"VM",address:"Via Costantino Morin, 32/26 - ROMA",notes:"Locato Pewex"},
+                    {name:"VT",address:"Viale Tirreno, 75 - ROMA",notes:"Locato Mercatino"},
+                    {name:"CdC",address:"Via di Tor san Giovanni, 145 - ROMA",notes:""},
+                    {name:"MC int. 1",address:"Via Monte Corona, 6 - ROMA",notes:"Locato Morichetti"},
+                    {name:"MC int. 2",address:"Via Monte Corona, 6 - ROMA",notes:"Locato D'Ambrosio"},
+                    {name:"MC int. 3",address:"Via Monte Corona, 6 - ROMA",notes:"Locato Bellavita"},
+                    {name:"MC int. 4",address:"Via Monte Corona, 6 - ROMA",notes:"Locato Nalli"},
+                    {name:"MC int. 5",address:"Via Monte Corona, 6 - ROMA",notes:"Locato Arché - Guglielmi"},
+                    {name:"MC int. 6",address:"Via Monte Corona, 6 - ROMA",notes:"Locato Manso"},
+                    {name:"MC int. 7",address:"Via Monte Corona, 6 - ROMA",notes:"Locato Siviero"},
+                    {name:"MC int. 8",address:"Via Monte Corona, 6 - ROMA",notes:"Locato Turri"},
+                    {name:"CAPITIGNANO",address:"Strada per San Giovanni Paganica - Capitignano AQ",notes:"Libero"},
+                    {name:"LUCCA IV piano",address:"Via Fillungo, 142 - LUCCA",notes:""},
+                    {name:"LUCCA Torre",address:"Via S.Anastasio, 1 - LUCCA",notes:""},
+                    {name:"SORESINA",address:"Via Genala, 12 - Soresina - CR",notes:""},
+                    {name:"ARAGONA box",address:"Via Aragona, 44/46 - ROMA",notes:""},
+                    {name:"RJD",address:"",notes:""},{name:"V1",address:"",notes:""},{name:"V2",address:"",notes:""},
+                    {name:"V3",address:"",notes:""},{name:"V4a",address:"",notes:""},{name:"V4b",address:"",notes:""},
+                    {name:"FOGAZZARO Box",address:"",notes:""},{name:"D'OVIDIO Locale",address:"",notes:""},
+                    {name:"VA84",address:"",notes:""},{name:"FdR33",address:"",notes:""}
+                ];
+                props.forEach(function(p){var ref=db.collection('properties').doc();batch.set(ref,Object.assign({},p,{createdAt:new Date().toISOString()}));});
+                batch.commit().then(hideLoading).catch(function(e){hideLoading();console.error(e);});
+            });
+        }
+    })();
+    </script>
+</body>
+</html>
