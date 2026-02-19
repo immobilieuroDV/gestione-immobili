@@ -29,36 +29,39 @@
         .property-card{cursor:pointer;border:2px solid transparent}.property-card:active{transform:scale(.98)}
         .property-title{font-size:18px;font-weight:600;color:var(--primary);margin-bottom:4px}
         .property-address{color:var(--text-secondary);font-size:14px;margin-bottom:8px}
-        .tabs{display:flex;border-bottom:2px solid var(--border);margin-bottom:20px;overflow-x:auto}
-        .tab{padding:12px 20px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;color:var(--text-secondary);font-weight:500;transition:all .3s}
+        .tabs{display:flex;border-bottom:2px solid var(--border);margin-bottom:20px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+        .tab{padding:12px 16px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;color:var(--text-secondary);font-weight:500;transition:all .3s;font-size:14px}
         .tab.active{color:var(--primary);border-bottom-color:var(--primary)}
         .tab-content{display:none}.tab-content.active{display:block;animation:fadeIn .3s}
         .form-group{margin-bottom:20px}
         label{display:block;margin-bottom:8px;font-weight:500;color:var(--text)}
         input,textarea,select{width:100%;padding:12px;border:1px solid var(--border);border-radius:8px;font-size:15px;font-family:inherit;transition:all .3s}
         input:focus,textarea:focus,select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(46,125,50,.1)}
-        textarea{resize:vertical;min-height:100px}
+        textarea{resize:vertical;min-height:80px}
         .btn{padding:12px 24px;border:none;border-radius:8px;font-size:15px;font-weight:500;cursor:pointer;transition:all .3s;display:inline-flex;align-items:center;gap:8px;justify-content:center}
         .btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--primary-dark)}.btn-primary:disabled{background:#a5d6a7;cursor:not-allowed}
         .btn-secondary{background:var(--secondary);color:#fff}.btn-danger{background:var(--danger);color:#fff}
+        .btn-warning{background:var(--warning);color:#fff}
         .btn-outline{background:transparent;border:2px solid var(--primary);color:var(--primary)}
         .btn-block{width:100%}.btn-sm{padding:8px 16px;font-size:13px}
         .btn-icon{width:40px;height:40px;padding:0;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:20px;background:transparent;border:none;cursor:pointer;color:var(--text-secondary)}
         .fab{position:fixed;bottom:80px;right:20px;width:56px;height:56px;border-radius:50%;background:var(--primary);color:#fff;border:none;font-size:24px;cursor:pointer;box-shadow:var(--shadow-lg);z-index:50;transition:all .3s}
         .fab:hover{transform:scale(1.1)}.fab.hidden{display:none}
         .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);box-shadow:0 -2px 10px rgba(0,0,0,.1);display:flex;justify-content:space-around;padding:8px 0;z-index:100}
-        .nav-item{display:flex;flex-direction:column;align-items:center;padding:8px 16px;cursor:pointer;color:var(--text-secondary);transition:all .3s;flex:1}
-        .nav-item.active{color:var(--primary)}.nav-icon{font-size:24px;margin-bottom:4px}.nav-label{font-size:12px;font-weight:500}
+        .nav-item{display:flex;flex-direction:column;align-items:center;padding:6px 8px;cursor:pointer;color:var(--text-secondary);transition:all .3s;flex:1}
+        .nav-item.active{color:var(--primary)}.nav-icon{font-size:22px;margin-bottom:2px}.nav-label{font-size:11px;font-weight:500}
         .modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center;padding:20px}
         .modal.active{display:flex;animation:fadeIn .3s}
         .modal-content{background:var(--card);border-radius:12px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto;animation:slideUp .3s}
         .modal-header{padding:20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
         .modal-title{font-size:20px;font-weight:600}.modal-body{padding:20px}
         .modal-footer{padding:20px;border-top:1px solid var(--border);display:flex;gap:12px;justify-content:flex-end}
-        .empty-state{text-align:center;padding:60px 20px;color:var(--text-secondary)}.empty-icon{font-size:64px;margin-bottom:16px;opacity:.3}
+        .empty-state{text-align:center;padding:40px 20px;color:var(--text-secondary)}.empty-icon{font-size:48px;margin-bottom:12px;opacity:.3}
         .badge{display:inline-block;padding:4px 12px;border-radius:12px;font-size:12px;font-weight:600}
         .badge-open{background:#e8f5e9;color:#2e7d32}.badge-progress{background:#fff3e0;color:#f57c00}.badge-closed{background:#e8f5e9;color:#388e3c}
-        .system-item{padding:16px;border:1px solid var(--border);border-radius:8px;margin-bottom:12px}
+        .badge-expired{background:#ffebee;color:#c62828}.badge-upcoming{background:#fff3e0;color:#f57c00}.badge-ok{background:#e8f5e9;color:#388e3c}
+        .system-item{padding:16px;border:1px solid var(--border);border-radius:8px;margin-bottom:12px;cursor:pointer;transition:all .3s}
+        .system-item:hover{box-shadow:var(--shadow)}
         .system-header{display:flex;justify-content:space-between;align-items:start;margin-bottom:8px}
         .system-category{font-weight:600;color:var(--primary)}.system-desc{color:var(--text-secondary);font-size:14px}
         .ticket-item{padding:16px;border-left:4px solid var(--border);background:var(--bg);border-radius:8px;margin-bottom:12px;cursor:pointer;transition:all .3s}
@@ -67,6 +70,11 @@
         .ticket-header{display:flex;justify-content:space-between;align-items:start;margin-bottom:8px}
         .ticket-title{font-weight:600}.ticket-desc{color:var(--text-secondary);font-size:14px;margin-bottom:8px}
         .ticket-meta{display:flex;gap:12px;font-size:13px;color:var(--text-secondary);flex-wrap:wrap}
+        .sched-item{padding:16px;border-left:4px solid var(--border);background:var(--bg);border-radius:8px;margin-bottom:12px;cursor:pointer;transition:all .3s}
+        .sched-item:hover{box-shadow:var(--shadow)}
+        .sched-item.scaduta{border-left-color:var(--danger)}.sched-item.in-scadenza{border-left-color:var(--warning)}.sched-item.ok{border-left-color:var(--success)}
+        .history-item{padding:12px;border:1px solid var(--border);border-radius:8px;margin-bottom:8px;font-size:14px}
+        .cert-item{padding:12px;border:1px solid var(--border);border-radius:8px;margin-bottom:8px;font-size:14px}
         .photo-preview{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:12px;margin-top:12px}
         .photo-item{position:relative;aspect-ratio:1;border-radius:8px;overflow:hidden}
         .photo-item img{width:100%;height:100%;object-fit:cover;cursor:pointer}
@@ -77,9 +85,11 @@
         .lightbox-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.2);color:#fff;border:none;width:40px;height:40px;border-radius:50%;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center}
         .sync-indicator{position:fixed;top:70px;right:16px;padding:6px 12px;border-radius:20px;font-size:12px;z-index:150;background:var(--primary-light);color:var(--primary);display:none}
         .sync-indicator.active{display:block;animation:fadeIn .3s}
+        .section-title{font-size:16px;font-weight:600;margin-bottom:12px;color:var(--text)}
+        .divider{border:none;border-top:1px solid var(--border);margin:20px 0}
         @keyframes fadeIn{from{opacity:0}to{opacity:1}}
         @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-        .mt-2{margin-top:16px}.mb-2{margin-bottom:16px}.text-secondary{color:var(--text-secondary)}.hidden{display:none!important}
+        .mt-1{margin-top:8px}.mt-2{margin-top:16px}.mb-1{margin-bottom:8px}.mb-2{margin-bottom:16px}.text-secondary{color:var(--text-secondary)}.hidden{display:none!important}
         @media(max-width:768px){.container{padding:12px}.card{padding:16px}}
     </style>
 </head>
@@ -102,206 +112,155 @@
         <div id="dashboardView" class="container"><div id="propertiesList"></div><div id="emptyState" class="empty-state hidden"><div class="empty-icon">🏠</div><h3>Nessun immobile</h3><p>Aggiungi il primo immobile con +</p></div></div>
         <div id="propertyDetailView" class="container hidden">
             <button class="btn btn-outline mb-2" id="backBtn">← Indietro</button>
-            <div class="tabs"><div class="tab active" data-tab="info">📋 Info</div><div class="tab" data-tab="systems">⚙️ Impianti</div><div class="tab" data-tab="tickets">🎫 Ticket</div></div>
+            <div class="tabs">
+                <div class="tab active" data-tab="info">📋 Info</div>
+                <div class="tab" data-tab="systems">⚙️ Impianti</div>
+                <div class="tab" data-tab="tickets">🎫 Ticket</div>
+                <div class="tab" data-tab="scheduled">📅 Programmate</div>
+            </div>
             <div id="tab-info" class="tab-content active"><div class="card"><h3 class="mb-2">Anagrafica Immobile</h3><div id="propertyInfo"></div><div style="display:flex;gap:12px;margin-top:20px;flex-wrap:wrap"><button class="btn btn-primary" id="editPropBtn">✏️ Modifica</button><button class="btn btn-danger" id="delPropBtn">🗑️ Elimina</button></div></div></div>
             <div id="tab-systems" class="tab-content"><div id="systemsList"></div><button class="btn btn-primary btn-block mt-2" id="addSystemBtn">+ Aggiungi Impianto</button></div>
             <div id="tab-tickets" class="tab-content"><div id="ticketsList"></div><button class="btn btn-primary btn-block mt-2" id="addTicketBtn">+ Nuovo Ticket</button></div>
+            <div id="tab-scheduled" class="tab-content"><div id="scheduledList"></div><button class="btn btn-primary btn-block mt-2" id="addSchedBtn">+ Nuova Attività Programmata</button></div>
+        </div>
+        <!-- System Detail View -->
+        <div id="systemDetailView" class="container hidden">
+            <button class="btn btn-outline mb-2" id="backToPropertyBtn">← Torna all'immobile</button>
+            <div class="card mb-2">
+                <div id="systemDetailHeader"></div>
+                <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap">
+                    <button class="btn btn-primary btn-sm" id="editSysBtn">✏️ Modifica</button>
+                    <button class="btn btn-danger btn-sm" id="delSysDetailBtn">🗑️ Elimina</button>
+                </div>
+            </div>
+            <div class="section-title mt-2">📜 Cronologia Manutenzioni</div>
+            <div id="maintenanceHistory"></div>
+            <button class="btn btn-outline btn-block mt-1" id="addMaintenanceBtn">+ Registra Manutenzione</button>
+            <hr class="divider">
+            <div class="section-title">📄 Certificazioni</div>
+            <div id="certificationsList"></div>
+            <button class="btn btn-outline btn-block mt-1" id="addCertBtn">+ Aggiungi Certificazione</button>
         </div>
         <button class="fab" id="fabButton">+</button>
-        <div class="bottom-nav"><div class="nav-item active" id="navHome"><div class="nav-icon">🏠</div><div class="nav-label">Immobili</div></div><div class="nav-item" id="navTickets"><div class="nav-icon">🎫</div><div class="nav-label">Tutti i Ticket</div></div><div class="nav-item" id="navSettings"><div class="nav-icon">⚙️</div><div class="nav-label">Impostazioni</div></div></div>
+        <div class="bottom-nav">
+            <div class="nav-item active" id="navHome"><div class="nav-icon">🏠</div><div class="nav-label">Immobili</div></div>
+            <div class="nav-item" id="navTickets"><div class="nav-icon">🎫</div><div class="nav-label">Ticket</div></div>
+            <div class="nav-item" id="navProgrammate"><div class="nav-icon">📅</div><div class="nav-label">Programmate</div></div>
+            <div class="nav-item" id="navSettings"><div class="nav-icon">⚙️</div><div class="nav-label">Impostaz.</div></div>
+        </div>
     </div>
 
+    <!-- MODALS -->
     <div id="propertyModal" class="modal"><div class="modal-content"><div class="modal-header"><div class="modal-title" id="propertyModalTitle">Nuovo Immobile</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><div class="form-group"><label>Nome *</label><input type="text" id="propName" placeholder="Es: Appartamento Via Roma 10"></div><div class="form-group"><label>Indirizzo</label><input type="text" id="propAddress" placeholder="Via Roma 10, Milano"></div><div class="form-group"><label>Note</label><textarea id="propNotes" placeholder="Note aggiuntive..."></textarea></div></div><div class="modal-footer"><button class="btn btn-secondary modal-close-btn">Annulla</button><button class="btn btn-primary" id="savePropBtn">Salva</button></div></div></div>
-    <div id="systemModal" class="modal"><div class="modal-content"><div class="modal-header"><div class="modal-title">Nuovo Impianto</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><div class="form-group"><label>Categoria *</label><select id="systemCategory"><option value="">Seleziona...</option><option value="Elettrico">⚡ Elettrico</option><option value="Idraulico">💧 Idraulico</option><option value="Riscaldamento">🔥 Riscaldamento</option><option value="Condizionamento">❄️ Condizionamento</option><option value="Varie Interni">🏠 Varie Interni</option><option value="Varie Esterni">🌳 Varie Esterni</option></select></div><div class="form-group"><label>Descrizione</label><textarea id="systemDesc" placeholder="Dettagli impianto..."></textarea></div><div class="form-group"><label>Foto Targhetta/Impianto</label><input type="file" id="systemPhoto" accept="image/*" capture="environment" multiple><div id="systemPhotoPreview" class="photo-preview"></div></div></div><div class="modal-footer"><button class="btn btn-secondary modal-close-btn">Annulla</button><button class="btn btn-primary" id="saveSystemBtn">Salva</button></div></div></div>
+
+    <div id="systemModal" class="modal"><div class="modal-content"><div class="modal-header"><div class="modal-title" id="systemModalTitle">Nuovo Impianto</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><div class="form-group"><label>Categoria *</label><select id="systemCategory"><option value="">Seleziona...</option><option value="Elettrico">⚡ Elettrico</option><option value="Idraulico">💧 Idraulico</option><option value="Riscaldamento">🔥 Riscaldamento</option><option value="Condizionamento">❄️ Condizionamento</option><option value="Varie Interni">🏠 Varie Interni</option><option value="Varie Esterni">🌳 Varie Esterni</option></select></div><div class="form-group"><label>Descrizione</label><textarea id="systemDesc" placeholder="Marca, modello, dettagli..."></textarea></div><div class="form-group"><label>Foto Targhetta/Impianto</label><input type="file" id="systemPhoto" accept="image/*" capture="environment" multiple><div id="systemPhotoPreview" class="photo-preview"></div></div></div><div class="modal-footer"><button class="btn btn-secondary modal-close-btn">Annulla</button><button class="btn btn-primary" id="saveSystemBtn">Salva</button></div></div></div>
+
     <div id="ticketModal" class="modal"><div class="modal-content"><div class="modal-header"><div class="modal-title" id="ticketModalTitle">Nuovo Ticket</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><div class="form-group"><label>Titolo *</label><input type="text" id="ticketTitle" placeholder="Es: Perdita rubinetto bagno"></div><div class="form-group"><label>Descrizione</label><textarea id="ticketDesc" placeholder="Descrizione del problema..."></textarea></div><div class="form-group hidden" id="ticketStatusGroup"><label>Stato</label><select id="ticketStatus"><option value="Aperto">🔵 Aperto</option><option value="In lavorazione">🟠 In lavorazione</option><option value="Chiuso">🟢 Chiuso</option></select></div><div class="form-group"><label>Foto</label><input type="file" id="ticketPhoto" accept="image/*" capture="environment" multiple><div id="ticketPhotoPreview" class="photo-preview"></div></div></div><div class="modal-footer"><button class="btn btn-danger hidden" id="delTicketBtn">🗑️ Elimina</button><div style="flex:1"></div><button class="btn btn-secondary modal-close-btn">Annulla</button><button class="btn btn-primary" id="saveTicketBtn">Salva</button></div></div></div>
+
+    <div id="schedModal" class="modal"><div class="modal-content"><div class="modal-header"><div class="modal-title" id="schedModalTitle">Nuova Attività Programmata</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><div class="form-group"><label>Attività *</label><input type="text" id="schedName" placeholder="Es: Revisione caldaia"></div><div class="form-group"><label>Frequenza *</label><select id="schedFreq"><option value="">Seleziona...</option><option value="mensile">Mensile</option><option value="bimestrale">Bimestrale</option><option value="trimestrale">Trimestrale</option><option value="semestrale">Semestrale</option><option value="annuale">Annuale</option><option value="biennale">Biennale</option></select></div><div class="form-group"><label>Prossima scadenza *</label><input type="date" id="schedDate"></div><div class="form-group"><label>Note</label><textarea id="schedNotes" placeholder="Dettagli..."></textarea></div></div><div class="modal-footer"><button class="btn btn-danger hidden" id="delSchedBtn">🗑️ Elimina</button><div style="flex:1"></div><button class="btn btn-secondary modal-close-btn">Annulla</button><button class="btn btn-primary" id="saveSchedBtn">Salva</button></div></div></div>
+
+    <div id="maintenanceModal" class="modal"><div class="modal-content"><div class="modal-header"><div class="modal-title">Registra Manutenzione</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><div class="form-group"><label>Data *</label><input type="date" id="maintDate"></div><div class="form-group"><label>Descrizione lavoro *</label><textarea id="maintDesc" placeholder="Cosa è stato fatto..."></textarea></div><div class="form-group"><label>Eseguito da</label><input type="text" id="maintBy" placeholder="Nome tecnico/ditta"></div><div class="form-group"><label>Foto</label><input type="file" id="maintPhoto" accept="image/*" capture="environment" multiple><div id="maintPhotoPreview" class="photo-preview"></div></div></div><div class="modal-footer"><button class="btn btn-secondary modal-close-btn">Annulla</button><button class="btn btn-primary" id="saveMaintBtn">Salva</button></div></div></div>
+
+    <div id="certModal" class="modal"><div class="modal-content"><div class="modal-header"><div class="modal-title">Aggiungi Certificazione</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><div class="form-group"><label>Tipo certificazione *</label><input type="text" id="certName" placeholder="Es: Dichiarazione di conformità"></div><div class="form-group"><label>Data rilascio</label><input type="date" id="certDate"></div><div class="form-group"><label>Scadenza (se prevista)</label><input type="date" id="certExpiry"></div><div class="form-group"><label>Note</label><textarea id="certNotes" placeholder="Dettagli, numero certificato..."></textarea></div><div class="form-group"><label>Foto/Scansione</label><input type="file" id="certPhoto" accept="image/*" capture="environment" multiple><div id="certPhotoPreview" class="photo-preview"></div></div></div><div class="modal-footer"><button class="btn btn-secondary modal-close-btn">Annulla</button><button class="btn btn-primary" id="saveCertBtn">Salva</button></div></div></div>
+
     <div id="confirmModal" class="modal"><div class="modal-content" style="max-width:380px"><div class="modal-header"><div class="modal-title" id="confirmTitle">Conferma</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><p id="confirmMessage"></p></div><div class="modal-footer"><button class="btn btn-secondary modal-close-btn" id="confirmCancelBtn">Annulla</button><button class="btn btn-danger" id="confirmBtn">Elimina</button></div></div></div>
-    <div id="allTicketsModal" class="modal"><div class="modal-content" style="max-width:600px"><div class="modal-header"><div class="modal-title">🎫 Tutti i Ticket</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap"><button class="btn btn-sm btn-primary ticket-filter active" data-filter="tutti">Tutti</button><button class="btn btn-sm btn-outline ticket-filter" data-filter="Aperto">🔵 Aperti</button><button class="btn btn-sm btn-outline ticket-filter" data-filter="In lavorazione">🟠 In lavorazione</button><button class="btn btn-sm btn-outline ticket-filter" data-filter="Chiuso">🟢 Chiusi</button></div><div id="allTicketsBody"></div></div></div></div>
-    <div id="settingsModal" class="modal"><div class="modal-content" style="max-width:450px"><div class="modal-header"><div class="modal-title">⚙️ Impostazioni</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><h3 style="margin-bottom:16px">🔑 Cambio Password</h3><div class="form-group"><label>Nuova password</label><input type="password" id="newPassword" placeholder="Minimo 6 caratteri"></div><div class="form-group"><label>Conferma password</label><input type="password" id="confirmPassword" placeholder="Ripeti la password"></div><button class="btn btn-primary btn-block" id="changePwBtn">Cambia Password</button><hr style="margin:24px 0;border:none;border-top:1px solid var(--border)"><h3 style="margin-bottom:16px">📦 Esporta Dati</h3><p class="text-secondary" style="font-size:14px;margin-bottom:12px">Scarica un riepilogo completo di immobili, impianti e ticket.</p><button class="btn btn-outline btn-block" id="exportBtn">📥 Esporta CSV</button><hr style="margin:24px 0;border:none;border-top:1px solid var(--border)"><h3 style="margin-bottom:8px">ℹ️ Info App</h3><p class="text-secondary" style="font-size:14px">Gestione Immobili & Manutenzioni<br>Versione 1.0<br>Utente: <span id="settingsUser"></span></p></div></div></div>
+
+    <div id="allTicketsModal" class="modal"><div class="modal-content" style="max-width:600px"><div class="modal-header"><div class="modal-title">🎫 Tutti i Ticket</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap"><button class="btn btn-sm btn-primary ticket-filter active" data-filter="tutti">Tutti</button><button class="btn btn-sm btn-outline ticket-filter" data-filter="Aperto">🔵 Aperti</button><button class="btn btn-sm btn-outline ticket-filter" data-filter="In lavorazione">🟠 In lavoraz.</button><button class="btn btn-sm btn-outline ticket-filter" data-filter="Chiuso">🟢 Chiusi</button></div><div id="allTicketsBody"></div></div></div></div>
+
+    <div id="allSchedModal" class="modal"><div class="modal-content" style="max-width:600px"><div class="modal-header"><div class="modal-title">📅 Tutte le Programmate</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><div id="allSchedBody"></div></div></div></div>
+
+    <div id="settingsModal" class="modal"><div class="modal-content" style="max-width:450px"><div class="modal-header"><div class="modal-title">⚙️ Impostazioni</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><h3 style="margin-bottom:16px">🔑 Cambio Password</h3><div class="form-group"><label>Nuova password</label><input type="password" id="newPassword" placeholder="Minimo 6 caratteri"></div><div class="form-group"><label>Conferma password</label><input type="password" id="confirmPassword" placeholder="Ripeti la password"></div><button class="btn btn-primary btn-block" id="changePwBtn">Cambia Password</button><hr class="divider"><h3 style="margin-bottom:16px">📦 Esporta Dati</h3><p class="text-secondary" style="font-size:14px;margin-bottom:12px">Scarica un riepilogo di immobili, impianti, ticket e programmate.</p><button class="btn btn-outline btn-block" id="exportBtn">📥 Esporta CSV</button><hr class="divider"><h3 style="margin-bottom:8px">ℹ️ Info App</h3><p class="text-secondary" style="font-size:14px">Gestione Immobili & Manutenzioni<br>Versione 2.0<br>Utente: <span id="settingsUser"></span></p></div></div></div>
+
     <div id="lightbox" class="lightbox"><button class="lightbox-close">×</button><img id="lightboxImg" src="" alt="Foto"></div>
 
-    <!-- Firebase Compat SDK (global scope, no module issues) -->
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
     <script>
     (function(){
-        firebase.initializeApp({
-            apiKey:"AIzaSyDt4fxlkdgVB4X5In19OLpi1er_XfAcggg",
-            authDomain:"gestione-immobili-323de.firebaseapp.com",
-            projectId:"gestione-immobili-323de",
-            storageBucket:"gestione-immobili-323de.firebasestorage.app",
-            messagingSenderId:"666147711598",
-            appId:"1:666147711598:web:6938f68a570185dc09547f"
-        });
-        var db=firebase.firestore(), auth=firebase.auth();
+        firebase.initializeApp({apiKey:"AIzaSyDt4fxlkdgVB4X5In19OLpi1er_XfAcggg",authDomain:"gestione-immobili-323de.firebaseapp.com",projectId:"gestione-immobili-323de",storageBucket:"gestione-immobili-323de.firebasestorage.app",messagingSenderId:"666147711598",appId:"1:666147711598:web:6938f68a570185dc09547f"});
+        var db=firebase.firestore(),auth=firebase.auth();
         var USER_NAMES={'dv@immobili.app':'DV','ca@immobili.app':'CA'};
-        var currentUser=null,currentUserName='',currentProperty=null,editingPropertyId=null,editingTicketId=null;
-        var unsubProps=null,unsubSys=null,unsubTick=null;
-        var propsCache=[],sysCache=[],tickCache=[];
+        var currentUser=null,currentUserName='',currentProperty=null,currentSystem=null;
+        var editingPropertyId=null,editingTicketId=null,editingSchedId=null,editingSystemId=null;
+        var unsubProps=null,unsubSys=null,unsubTick=null,unsubSched=null,unsubMaint=null,unsubCerts=null;
+        var propsCache=[],sysCache=[],tickCache=[],schedCache=[],maintCache=[],certsCache=[];
 
-        // Helpers
         function $(id){return document.getElementById(id);}
         function esc(t){if(!t)return'';var d=document.createElement('div');d.textContent=t;return d.innerHTML;}
         function showLoading(t){$('loadingText').textContent=t||'Caricamento...';$('loadingOverlay').classList.add('active');}
         function hideLoading(){$('loadingOverlay').classList.remove('active');}
         function showSync(){var el=$('syncIndicator');el.classList.add('active');setTimeout(function(){el.classList.remove('active');},1500);}
         function closeModal(id){$(id).classList.remove('active');}
+        function fmtDate(d){if(!d)return'';return new Date(d).toLocaleDateString('it-IT');}
+        function daysUntil(dateStr){if(!dateStr)return 9999;var d=new Date(dateStr);d.setHours(0,0,0,0);var now=new Date();now.setHours(0,0,0,0);return Math.ceil((d-now)/(1000*60*60*24));}
+
         var confirmCb=null;
-        function showConfirm(title,msg,cb){
-            $('confirmTitle').textContent=title;$('confirmMessage').textContent=msg;
-            $('confirmBtn').style.display='';$('confirmCancelBtn').textContent='Annulla';
-            confirmCb=cb;$('confirmModal').classList.add('active');
-        }
-        function showAlert(msg){
-            $('confirmTitle').textContent='Attenzione';$('confirmMessage').textContent=msg;
-            $('confirmBtn').style.display='none';$('confirmCancelBtn').textContent='OK';
-            confirmCb=null;$('confirmModal').classList.add('active');
-        }
+        function showConfirm(title,msg,cb){$('confirmTitle').textContent=title;$('confirmMessage').textContent=msg;$('confirmBtn').style.display='';$('confirmCancelBtn').textContent='Annulla';confirmCb=cb;$('confirmModal').classList.add('active');}
+        function showAlert(msg){$('confirmTitle').textContent='Attenzione';$('confirmMessage').textContent=msg;$('confirmBtn').style.display='none';$('confirmCancelBtn').textContent='OK';confirmCb=null;$('confirmModal').classList.add('active');}
         $('confirmBtn').addEventListener('click',function(){var cb=confirmCb;closeModal('confirmModal');confirmCb=null;if(cb)cb();});
 
-        // Close modals
         document.querySelectorAll('.modal-close-btn').forEach(function(btn){btn.addEventListener('click',function(){btn.closest('.modal').classList.remove('active');});});
         document.querySelectorAll('.modal').forEach(function(m){m.addEventListener('click',function(e){if(e.target===m)m.classList.remove('active');});});
         document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.querySelectorAll('.modal.active').forEach(function(m){m.classList.remove('active');});$('lightbox').classList.remove('active');}});
-
-        // Lightbox
         $('lightbox').addEventListener('click',function(){$('lightbox').classList.remove('active');});
         function viewImage(src){$('lightboxImg').src=src;$('lightbox').classList.add('active');}
 
-        // Auth
-        auth.onAuthStateChanged(function(user){
-            hideLoading();
-            if(user){currentUser=user;currentUserName=USER_NAMES[user.email]||user.email;showApp();}
-            else{currentUser=null;$('loginScreen').classList.remove('hidden');$('mainApp').classList.add('hidden');}
-        });
-
-        $('loginBtn').addEventListener('click',function(){
-            var email=$('loginEmail').value.trim(),pw=$('loginPassword').value,err=$('loginError'),btn=$('loginBtn');
-            err.classList.remove('visible');
-            if(!email){err.textContent="Inserisci l'email";err.classList.add('visible');return;}
-            if(!pw){err.textContent='Inserisci la password';err.classList.add('visible');return;}
-            btn.disabled=true;btn.textContent='Accesso...';
-            auth.signInWithEmailAndPassword(email,pw).catch(function(e){
-                err.textContent=e.code==='auth/invalid-credential'?'Credenziali errate!':'Errore: '+e.message;
-                err.classList.add('visible');
-            }).finally(function(){btn.disabled=false;btn.textContent='Accedi';});
-        });
+        // ===== AUTH =====
+        auth.onAuthStateChanged(function(user){hideLoading();if(user){currentUser=user;currentUserName=USER_NAMES[user.email]||user.email;showApp();}else{currentUser=null;$('loginScreen').classList.remove('hidden');$('mainApp').classList.add('hidden');}});
+        $('loginBtn').addEventListener('click',function(){var email=$('loginEmail').value.trim(),pw=$('loginPassword').value,err=$('loginError'),btn=$('loginBtn');err.classList.remove('visible');if(!email){err.textContent="Inserisci l'email";err.classList.add('visible');return;}if(!pw){err.textContent='Inserisci la password';err.classList.add('visible');return;}btn.disabled=true;btn.textContent='Accesso...';auth.signInWithEmailAndPassword(email,pw).catch(function(e){err.textContent=e.code==='auth/invalid-credential'?'Credenziali errate!':'Errore: '+e.message;err.classList.add('visible');}).finally(function(){btn.disabled=false;btn.textContent='Accedi';});});
         $('loginPassword').addEventListener('keydown',function(e){if(e.key==='Enter')$('loginBtn').click();});
-        $('logoutBtn').addEventListener('click',function(){[unsubProps,unsubSys,unsubTick].forEach(function(u){if(u)u();});auth.signOut();});
+        $('logoutBtn').addEventListener('click',function(){[unsubProps,unsubSys,unsubTick,unsubSched,unsubMaint,unsubCerts].forEach(function(u){if(u)u();});auth.signOut();});
 
-        function showApp(){
-            $('loginScreen').classList.add('hidden');$('mainApp').classList.remove('hidden');
-            $('userBadge').textContent=currentUserName;
-            showDashboard();listenProps();seedProperties();
-        }
+        function showApp(){$('loginScreen').classList.add('hidden');$('mainApp').classList.remove('hidden');$('userBadge').textContent=currentUserName;showDashboard();listenProps();seedProperties();}
 
-        // Realtime
-        function listenProps(){
-            if(unsubProps)unsubProps();
-            unsubProps=db.collection('properties').orderBy('name').onSnapshot(function(snap){
-                propsCache=snap.docs.map(function(d){return Object.assign({id:d.id},d.data());});
-                renderProperties();
-                if(currentProperty){currentProperty=propsCache.find(function(p){return p.id===currentProperty.id;});if(currentProperty)renderDetail();}
-                showSync();
-            });
-        }
-        function listenSys(pid){
-            if(unsubSys)unsubSys();
-            unsubSys=db.collection('systems').where('propertyId','==',pid).onSnapshot(function(snap){
-                sysCache=snap.docs.map(function(d){return Object.assign({id:d.id},d.data());});
-                renderSystems();showSync();
-            });
-        }
-        function listenTick(pid){
-            if(unsubTick)unsubTick();
-            unsubTick=db.collection('tickets').where('propertyId','==',pid).onSnapshot(function(snap){
-                tickCache=snap.docs.map(function(d){return Object.assign({id:d.id},d.data());});
-                renderTickets();showSync();
-            });
-        }
+        // ===== REALTIME LISTENERS =====
+        function listenProps(){if(unsubProps)unsubProps();unsubProps=db.collection('properties').orderBy('name').onSnapshot(function(snap){propsCache=snap.docs.map(function(d){return Object.assign({id:d.id},d.data());});renderProperties();if(currentProperty){currentProperty=propsCache.find(function(p){return p.id===currentProperty.id;});if(currentProperty)renderDetail();}showSync();});}
+        function listenSys(pid){if(unsubSys)unsubSys();unsubSys=db.collection('systems').where('propertyId','==',pid).onSnapshot(function(snap){sysCache=snap.docs.map(function(d){return Object.assign({id:d.id},d.data());});renderSystems();if(currentSystem){currentSystem=sysCache.find(function(s){return s.id===currentSystem.id;});if(currentSystem)renderSystemDetail();}showSync();});}
+        function listenTick(pid){if(unsubTick)unsubTick();unsubTick=db.collection('tickets').where('propertyId','==',pid).onSnapshot(function(snap){tickCache=snap.docs.map(function(d){return Object.assign({id:d.id},d.data());});renderTickets();showSync();});}
+        function listenSched(pid){if(unsubSched)unsubSched();unsubSched=db.collection('scheduled').where('propertyId','==',pid).onSnapshot(function(snap){schedCache=snap.docs.map(function(d){return Object.assign({id:d.id},d.data());});renderScheduled();showSync();});}
+        function listenMaint(sysId){if(unsubMaint)unsubMaint();unsubMaint=db.collection('maintenance').where('systemId','==',sysId).orderBy('date','desc').onSnapshot(function(snap){maintCache=snap.docs.map(function(d){return Object.assign({id:d.id},d.data());});renderMaintenance();showSync();});}
+        function listenCerts(sysId){if(unsubCerts)unsubCerts();unsubCerts=db.collection('certifications').where('systemId','==',sysId).onSnapshot(function(snap){certsCache=snap.docs.map(function(d){return Object.assign({id:d.id},d.data());});renderCertifications();showSync();});}
 
-        // Nav
+        // ===== NAVIGATION =====
         function showDashboard(){
-            $('dashboardView').classList.remove('hidden');$('propertyDetailView').classList.add('hidden');
-            document.querySelector('.header h1').textContent='🏢 Immobili';
-            $('fabButton').classList.remove('hidden');currentProperty=null;
-            if(unsubSys){unsubSys();unsubSys=null;}if(unsubTick){unsubTick();unsubTick=null;}
+            $('dashboardView').classList.remove('hidden');$('propertyDetailView').classList.add('hidden');$('systemDetailView').classList.add('hidden');
+            document.querySelector('.header h1').textContent='🏢 Immobili';$('fabButton').classList.remove('hidden');
+            currentProperty=null;currentSystem=null;
+            [unsubSys,unsubTick,unsubSched,unsubMaint,unsubCerts].forEach(function(u){if(u)u();});
+            unsubSys=unsubTick=unsubSched=unsubMaint=unsubCerts=null;
             renderProperties();
         }
         function viewProperty(id){
             currentProperty=propsCache.find(function(p){return p.id===id;});if(!currentProperty)return;
-            $('dashboardView').classList.add('hidden');$('propertyDetailView').classList.remove('hidden');
-            document.querySelector('.header h1').textContent=currentProperty.name;
-            $('fabButton').classList.add('hidden');switchTab('info');renderDetail();listenSys(id);listenTick(id);
+            currentSystem=null;
+            $('dashboardView').classList.add('hidden');$('propertyDetailView').classList.remove('hidden');$('systemDetailView').classList.add('hidden');
+            document.querySelector('.header h1').textContent=currentProperty.name;$('fabButton').classList.add('hidden');
+            switchTab('info');renderDetail();listenSys(id);listenTick(id);listenSched(id);
         }
+        function viewSystem(id){
+            currentSystem=sysCache.find(function(s){return s.id===id;});if(!currentSystem)return;
+            $('propertyDetailView').classList.add('hidden');$('systemDetailView').classList.remove('hidden');
+            document.querySelector('.header h1').textContent=currentSystem.category;
+            renderSystemDetail();listenMaint(id);listenCerts(id);
+        }
+        function backToProperty(){
+            $('systemDetailView').classList.add('hidden');$('propertyDetailView').classList.remove('hidden');
+            document.querySelector('.header h1').textContent=currentProperty.name;
+            currentSystem=null;if(unsubMaint){unsubMaint();unsubMaint=null;}if(unsubCerts){unsubCerts();unsubCerts=null;}
+            switchTab('systems');
+        }
+
         $('backBtn').addEventListener('click',showDashboard);
+        $('backToPropertyBtn').addEventListener('click',backToProperty);
         $('navHome').addEventListener('click',showDashboard);
-        $('navSettings').addEventListener('click',function(){
-            $('settingsUser').textContent=currentUserName+' ('+currentUser.email+')';
-            $('newPassword').value='';$('confirmPassword').value='';
-            $('settingsModal').classList.add('active');
-        });
-
-        // Change password
-        $('changePwBtn').addEventListener('click',function(){
-            var pw=$('newPassword').value,pw2=$('confirmPassword').value;
-            if(!pw||pw.length<6){showAlert('La password deve essere di almeno 6 caratteri');return;}
-            if(pw!==pw2){showAlert('Le password non coincidono');return;}
-            var btn=$('changePwBtn');btn.disabled=true;btn.textContent='Salvataggio...';
-            currentUser.updatePassword(pw).then(function(){
-                $('newPassword').value='';$('confirmPassword').value='';
-                showAlert('Password cambiata con successo!');
-            }).catch(function(e){
-                if(e.code==='auth/requires-recent-login')showAlert('Per sicurezza devi rifare il login prima di cambiare password. Esci e rientra.');
-                else showAlert('Errore: '+e.message);
-            }).finally(function(){btn.disabled=false;btn.textContent='Cambia Password';});
-        });
-
-        // Export CSV
-        $('exportBtn').addEventListener('click',function(){
-            var btn=$('exportBtn');btn.disabled=true;btn.textContent='Esportazione...';
-            Promise.all([
-                db.collection('properties').get(),
-                db.collection('systems').get(),
-                db.collection('tickets').get()
-            ]).then(function(results){
-                var props=results[0].docs.map(function(d){return Object.assign({id:d.id},d.data());});
-                var sys=results[1].docs.map(function(d){return Object.assign({id:d.id},d.data());});
-                var ticks=results[2].docs.map(function(d){return Object.assign({id:d.id},d.data());});
-
-                var csv='IMMOBILI\nNome;Indirizzo;Note\n';
-                props.forEach(function(p){csv+='"'+esc(p.name)+'";"'+(p.address||'')+'";"'+(p.notes||'')+'"\n';});
-
-                csv+='\nIMPIANTI\nImmobile;Categoria;Descrizione\n';
-                sys.forEach(function(s){
-                    var pr=props.find(function(p){return p.id===s.propertyId;});
-                    csv+='"'+(pr?pr.name:'N/D')+'";"'+s.category+'";"'+(s.description||'')+'"\n';
-                });
-
-                csv+='\nTICKET\nImmobile;Titolo;Descrizione;Stato;Creato da;Data\n';
-                ticks.forEach(function(t){
-                    var pr=props.find(function(p){return p.id===t.propertyId;});
-                    csv+='"'+(pr?pr.name:'N/D')+'";"'+t.title+'";"'+(t.description||'')+'";"'+t.status+'";"'+(t.createdBy||'')+'";"'+(t.createdAt?new Date(t.createdAt).toLocaleDateString('it-IT'):'')+'"\n';
-                });
-
-                var blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'});
-                var url=URL.createObjectURL(blob);
-                var a=document.createElement('a');a.href=url;a.download='export_immobili_'+new Date().toISOString().slice(0,10)+'.csv';
-                document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
-            }).catch(function(e){showAlert('Errore: '+e.message);}).finally(function(){btn.disabled=false;btn.textContent='📥 Esporta CSV';});
-        });
         $('fabButton').addEventListener('click',function(){openPropertyModal();});
 
         // Tabs
-        function switchTab(name){
-            document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
-            document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});
-            document.querySelector('[data-tab="'+name+'"]').classList.add('active');
-            $('tab-'+name).classList.add('active');
-        }
+        function switchTab(name){document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});document.querySelector('[data-tab="'+name+'"]').classList.add('active');$('tab-'+name).classList.add('active');}
         document.querySelectorAll('.tab').forEach(function(t){t.addEventListener('click',function(){switchTab(t.dataset.tab);});});
 
-        // Render
+        // ===== RENDER PROPERTIES =====
         function renderProperties(){
             var list=$('propertiesList'),empty=$('emptyState');
             if(!propsCache.length){list.innerHTML='';empty.classList.remove('hidden');return;}
@@ -309,226 +268,122 @@
             list.innerHTML=propsCache.map(function(p){return '<div class="card property-card" data-pid="'+p.id+'"><div><div class="property-title">'+esc(p.name)+'</div>'+(p.address?'<div class="property-address">📍 '+esc(p.address)+'</div>':'')+'</div>'+(p.notes?'<div class="text-secondary" style="font-size:14px">'+esc(p.notes)+'</div>':'')+'</div>';}).join('');
             list.querySelectorAll('.property-card').forEach(function(c){c.addEventListener('click',function(){viewProperty(c.dataset.pid);});});
         }
-        function renderDetail(){
-            if(!currentProperty)return;
-            $('propertyInfo').innerHTML='<p><strong>Nome:</strong> '+esc(currentProperty.name)+'</p>'+(currentProperty.address?'<p><strong>Indirizzo:</strong> '+esc(currentProperty.address)+'</p>':'')+(currentProperty.notes?'<p><strong>Note:</strong> '+esc(currentProperty.notes)+'</p>':'')+(currentProperty.createdAt?'<p class="text-secondary" style="font-size:13px;margin-top:12px">Creato il '+new Date(currentProperty.createdAt).toLocaleDateString('it-IT')+'</p>':'');
-        }
+        function renderDetail(){if(!currentProperty)return;$('propertyInfo').innerHTML='<p><strong>Nome:</strong> '+esc(currentProperty.name)+'</p>'+(currentProperty.address?'<p><strong>Indirizzo:</strong> '+esc(currentProperty.address)+'</p>':'')+(currentProperty.notes?'<p><strong>Note:</strong> '+esc(currentProperty.notes)+'</p>':'');}
+
+        // ===== RENDER SYSTEMS =====
         function renderSystems(){
             var list=$('systemsList');
-            if(!sysCache.length){list.innerHTML='<div class="empty-state"><div class="empty-icon">⚙️</div><p>Nessun impianto registrato</p></div>';return;}
-            list.innerHTML=sysCache.map(function(s){return '<div class="system-item"><div class="system-header"><div class="system-category">'+esc(s.category)+'</div><button class="btn btn-sm btn-danger del-sys-btn" data-sid="'+s.id+'">🗑️</button></div>'+(s.description?'<div class="system-desc">'+esc(s.description)+'</div>':'')+(s.photos&&s.photos.length?'<div class="photo-preview mt-2">'+s.photos.map(function(ph){return '<div class="photo-item"><img src="'+ph+'" alt="Foto" class="photo-click"></div>';}).join('')+'</div>':'')+'</div>';}).join('');
-            list.querySelectorAll('.del-sys-btn').forEach(function(b){b.addEventListener('click',function(e){e.stopPropagation();deleteSystem(b.dataset.sid);});});
+            if(!sysCache.length){list.innerHTML='<div class="empty-state"><div class="empty-icon">⚙️</div><p>Nessun impianto</p></div>';return;}
+            list.innerHTML=sysCache.map(function(s){return '<div class="system-item" data-sid="'+s.id+'"><div class="system-header"><div class="system-category">'+esc(s.category)+'</div><span style="font-size:12px;color:var(--text-secondary)">Dettaglio →</span></div>'+(s.description?'<div class="system-desc">'+esc(s.description)+'</div>':'')+(s.photos&&s.photos.length?'<div class="photo-preview mt-2">'+s.photos.map(function(ph){return '<div class="photo-item"><img src="'+ph+'" alt="Foto" class="photo-click"></div>';}).join('')+'</div>':'')+'</div>';}).join('');
+            list.querySelectorAll('.system-item').forEach(function(el){el.addEventListener('click',function(e){if(!e.target.classList.contains('photo-click'))viewSystem(el.dataset.sid);});});
             list.querySelectorAll('.photo-click').forEach(function(img){img.addEventListener('click',function(e){e.stopPropagation();viewImage(img.src);});});
         }
+
+        // ===== RENDER SYSTEM DETAIL =====
+        function renderSystemDetail(){
+            if(!currentSystem)return;
+            $('systemDetailHeader').innerHTML='<div class="system-category" style="font-size:18px;margin-bottom:8px">'+esc(currentSystem.category)+'</div>'+(currentSystem.description?'<div class="system-desc">'+esc(currentSystem.description)+'</div>':'')+(currentSystem.photos&&currentSystem.photos.length?'<div class="photo-preview mt-2">'+currentSystem.photos.map(function(ph){return '<div class="photo-item"><img src="'+ph+'" alt="Foto" class="photo-click"></div>';}).join('')+'</div>':'');
+            $('systemDetailView').querySelectorAll('.photo-click').forEach(function(img){img.addEventListener('click',function(e){e.stopPropagation();viewImage(img.src);});});
+        }
+
+        // ===== RENDER MAINTENANCE HISTORY =====
+        function renderMaintenance(){
+            var list=$('maintenanceHistory');
+            if(!maintCache.length){list.innerHTML='<div class="text-secondary" style="padding:16px;text-align:center">Nessuna manutenzione registrata</div>';return;}
+            list.innerHTML=maintCache.map(function(m){return '<div class="history-item"><div style="display:flex;justify-content:space-between;align-items:start"><strong>'+fmtDate(m.date)+'</strong><button class="btn btn-sm btn-danger del-maint" data-mid="'+m.id+'" style="padding:4px 8px;font-size:11px">🗑️</button></div><div>'+esc(m.description)+'</div>'+(m.performedBy?'<div class="text-secondary" style="font-size:13px">👤 '+esc(m.performedBy)+'</div>':'')+(m.photos&&m.photos.length?'<div class="photo-preview mt-1">'+m.photos.map(function(ph){return '<div class="photo-item"><img src="'+ph+'" alt="Foto" class="photo-click"></div>';}).join('')+'</div>':'')+'</div>';}).join('');
+            list.querySelectorAll('.del-maint').forEach(function(b){b.addEventListener('click',function(e){e.stopPropagation();showConfirm('Elimina','Eliminare questa manutenzione?',function(){db.collection('maintenance').doc(b.dataset.mid).delete();});});});
+            list.querySelectorAll('.photo-click').forEach(function(img){img.addEventListener('click',function(e){e.stopPropagation();viewImage(img.src);});});
+        }
+
+        // ===== RENDER CERTIFICATIONS =====
+        function renderCertifications(){
+            var list=$('certificationsList');
+            if(!certsCache.length){list.innerHTML='<div class="text-secondary" style="padding:16px;text-align:center">Nessuna certificazione</div>';return;}
+            list.innerHTML=certsCache.map(function(c){
+                var days=daysUntil(c.expiry);var badgeCls=!c.expiry?'':'badge '+(days<0?'badge-expired':days<30?'badge-upcoming':'badge-ok');
+                var badgeTxt=!c.expiry?'':(days<0?'⚠️ Scaduta':'📅 Scade '+fmtDate(c.expiry));
+                return '<div class="cert-item"><div style="display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:8px"><strong>'+esc(c.name)+'</strong><button class="btn btn-sm btn-danger del-cert" data-cid="'+c.id+'" style="padding:4px 8px;font-size:11px">🗑️</button></div>'+(c.date?'<div class="text-secondary" style="font-size:13px">Rilasciato: '+fmtDate(c.date)+'</div>':'')+(badgeTxt?'<span class="'+badgeCls+'" style="margin-top:4px">'+badgeTxt+'</span>':'')+(c.notes?'<div style="margin-top:4px;font-size:13px">'+esc(c.notes)+'</div>':'')+(c.photos&&c.photos.length?'<div class="photo-preview mt-1">'+c.photos.map(function(ph){return '<div class="photo-item"><img src="'+ph+'" alt="Foto" class="photo-click"></div>';}).join('')+'</div>':'')+'</div>';
+            }).join('');
+            list.querySelectorAll('.del-cert').forEach(function(b){b.addEventListener('click',function(e){e.stopPropagation();showConfirm('Elimina','Eliminare questa certificazione?',function(){db.collection('certifications').doc(b.dataset.cid).delete();});});});
+            list.querySelectorAll('.photo-click').forEach(function(img){img.addEventListener('click',function(e){e.stopPropagation();viewImage(img.src);});});
+        }
+
+        // ===== RENDER TICKETS =====
         function renderTickets(){
             var list=$('ticketsList');
             if(!tickCache.length){list.innerHTML='<div class="empty-state"><div class="empty-icon">🎫</div><p>Nessun ticket</p></div>';return;}
             var ord={'Aperto':0,'In lavorazione':1,'Chiuso':2};
             var sorted=tickCache.slice().sort(function(a,b){return(ord[a.status]||0)-(ord[b.status]||0);});
-            list.innerHTML=sorted.map(function(t){
-                var css=t.status==='Aperto'?'open':t.status==='In lavorazione'?'in-lavorazione':'chiuso';
-                var bc=t.status==='Aperto'?'badge-open':t.status==='In lavorazione'?'badge-progress':'badge-closed';
-                var ic=t.status==='Aperto'?'🔵':t.status==='In lavorazione'?'🟠':'🟢';
-                return '<div class="ticket-item '+css+'" data-tid="'+t.id+'"><div class="ticket-header"><div class="ticket-title">'+esc(t.title)+'</div><span class="badge '+bc+'">'+ic+' '+t.status+'</span></div>'+(t.description?'<div class="ticket-desc">'+esc(t.description)+'</div>':'')+'<div class="ticket-meta"><span>👤 '+esc(t.createdBy||'')+'</span><span>📅 '+(t.createdAt?new Date(t.createdAt).toLocaleDateString('it-IT'):'')+'</span></div>'+(t.photos&&t.photos.length?'<div class="photo-preview mt-2">'+t.photos.map(function(ph){return '<div class="photo-item"><img src="'+ph+'" alt="Foto" class="photo-click"></div>';}).join('')+'</div>':'')+'</div>';
-            }).join('');
+            list.innerHTML=sorted.map(function(t){var css=t.status==='Aperto'?'open':t.status==='In lavorazione'?'in-lavorazione':'chiuso';var bc=t.status==='Aperto'?'badge-open':t.status==='In lavorazione'?'badge-progress':'badge-closed';var ic=t.status==='Aperto'?'🔵':t.status==='In lavorazione'?'🟠':'🟢';return '<div class="ticket-item '+css+'" data-tid="'+t.id+'"><div class="ticket-header"><div class="ticket-title">'+esc(t.title)+'</div><span class="badge '+bc+'">'+ic+' '+t.status+'</span></div>'+(t.description?'<div class="ticket-desc">'+esc(t.description)+'</div>':'')+'<div class="ticket-meta"><span>👤 '+esc(t.createdBy||'')+'</span><span>📅 '+fmtDate(t.createdAt)+'</span></div>'+(t.photos&&t.photos.length?'<div class="photo-preview mt-2">'+t.photos.map(function(ph){return '<div class="photo-item"><img src="'+ph+'" alt="Foto" class="photo-click"></div>';}).join('')+'</div>':'')+'</div>';}).join('');
             list.querySelectorAll('.ticket-item').forEach(function(el){el.addEventListener('click',function(){editTicket(el.dataset.tid);});});
             list.querySelectorAll('.photo-click').forEach(function(img){img.addEventListener('click',function(e){e.stopPropagation();viewImage(img.src);});});
         }
 
-        // Property CRUD
-        function openPropertyModal(){
-            editingPropertyId=null;$('propertyModalTitle').textContent='Nuovo Immobile';
-            $('propName').value='';$('propAddress').value='';$('propNotes').value='';
-            $('propertyModal').classList.add('active');
-        }
-        $('editPropBtn').addEventListener('click',function(){
-            editingPropertyId=currentProperty.id;$('propertyModalTitle').textContent='Modifica Immobile';
-            $('propName').value=currentProperty.name;$('propAddress').value=currentProperty.address||'';
-            $('propNotes').value=currentProperty.notes||'';$('propertyModal').classList.add('active');
-        });
-        $('savePropBtn').addEventListener('click',function(){
-            var name=$('propName').value.trim();if(!name){showAlert('Il nome è obbligatorio!');return;}
-            var btn=$('savePropBtn');btn.disabled=true;btn.textContent='Salvataggio...';
-            var data={name:name,address:$('propAddress').value.trim(),notes:$('propNotes').value.trim()};
-            var p=editingPropertyId?db.collection('properties').doc(editingPropertyId).update(data):(data.createdAt=new Date().toISOString(),db.collection('properties').add(data));
-            p.then(function(){closeModal('propertyModal');}).catch(function(e){showAlert('Errore: '+e.message);}).finally(function(){btn.disabled=false;btn.textContent='Salva';});
-        });
-        $('delPropBtn').addEventListener('click',function(){
-            showConfirm('Elimina Immobile','Sei sicuro? Verranno eliminati anche impianti e ticket.',function(){
-                showLoading('Eliminazione...');
-                var batch1=db.batch(),batch2=db.batch();
-                db.collection('systems').where('propertyId','==',currentProperty.id).get().then(function(snap){
-                    snap.forEach(function(d){batch1.delete(d.ref);});return batch1.commit();
-                }).then(function(){
-                    return db.collection('tickets').where('propertyId','==',currentProperty.id).get();
-                }).then(function(snap){
-                    snap.forEach(function(d){batch2.delete(d.ref);});return batch2.commit();
-                }).then(function(){
-                    return db.collection('properties').doc(currentProperty.id).delete();
-                }).then(function(){showDashboard();}).catch(function(e){showAlert('Errore: '+e.message);}).finally(hideLoading);
-            });
-        });
-
-        // System CRUD
-        $('addSystemBtn').addEventListener('click',function(){
-            $('systemCategory').value='';$('systemDesc').value='';$('systemPhoto').value='';$('systemPhotoPreview').innerHTML='';
-            $('systemModal').classList.add('active');
-        });
-        $('saveSystemBtn').addEventListener('click',function(){
-            var cat=$('systemCategory').value;if(!cat){showAlert('Seleziona una categoria!');return;}
-            var btn=$('saveSystemBtn');btn.disabled=true;btn.textContent='Salvataggio...';
-            processPhotos('systemPhoto').then(function(photos){
-                return db.collection('systems').add({propertyId:currentProperty.id,category:cat,description:$('systemDesc').value.trim(),photos:photos,createdAt:new Date().toISOString()});
-            }).then(function(){closeModal('systemModal');}).catch(function(e){showAlert('Errore: '+e.message);}).finally(function(){btn.disabled=false;btn.textContent='Salva';});
-        });
-        function deleteSystem(id){
-            showConfirm('Elimina Impianto','Eliminare questo impianto?',function(){
-                db.collection('systems').doc(id).delete().catch(function(e){showAlert('Errore: '+e.message);});
-            });
+        // ===== RENDER SCHEDULED =====
+        function renderScheduled(){
+            var list=$('scheduledList');
+            if(!schedCache.length){list.innerHTML='<div class="empty-state"><div class="empty-icon">📅</div><p>Nessuna attività programmata</p></div>';return;}
+            var sorted=schedCache.slice().sort(function(a,b){return daysUntil(a.nextDate)-daysUntil(b.nextDate);});
+            list.innerHTML=sorted.map(function(s){var days=daysUntil(s.nextDate);var cls=days<0?'scaduta':days<30?'in-scadenza':'ok';var badgeCls=days<0?'badge-expired':days<30?'badge-upcoming':'badge-ok';var badgeTxt=days<0?'⚠️ Scaduta da '+Math.abs(days)+'gg':days===0?'📅 Oggi!':days<30?'📅 Tra '+days+'gg':'✅ '+fmtDate(s.nextDate);return '<div class="sched-item '+cls+'" data-schid="'+s.id+'"><div style="display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:8px"><div class="ticket-title">'+esc(s.name)+'</div><span class="badge '+badgeCls+'">'+badgeTxt+'</span></div><div class="ticket-meta mt-1"><span>🔄 '+esc(s.frequency)+'</span></div>'+(s.notes?'<div class="ticket-desc mt-1">'+esc(s.notes)+'</div>':'')+'</div>';}).join('');
+            list.querySelectorAll('.sched-item').forEach(function(el){el.addEventListener('click',function(){editScheduled(el.dataset.schid);});});
         }
 
-        // Ticket CRUD
-        $('addTicketBtn').addEventListener('click',function(){
-            editingTicketId=null;$('ticketModalTitle').textContent='Nuovo Ticket';
-            $('ticketTitle').value='';$('ticketDesc').value='';$('ticketStatus').value='Aperto';
-            $('ticketPhoto').value='';$('ticketPhotoPreview').innerHTML='';
-            $('ticketStatusGroup').classList.add('hidden');$('delTicketBtn').classList.add('hidden');$('ticketModal').classList.add('active');
-        });
-        function editTicket(id){
-            var t=tickCache.find(function(x){return x.id===id;});if(!t)return;
-            editingTicketId=id;$('ticketModalTitle').textContent='Modifica Ticket';
-            $('ticketTitle').value=t.title;$('ticketDesc').value=t.description||'';
-            $('ticketStatus').value=t.status;$('ticketPhoto').value='';
-            $('ticketStatusGroup').classList.remove('hidden');
-            $('delTicketBtn').classList.remove('hidden');
-            var prev=$('ticketPhotoPreview');
-            if(t.photos&&t.photos.length){
-                prev.innerHTML=t.photos.map(function(ph,i){return '<div class="photo-item"><img src="'+ph+'" alt="Foto"><button class="photo-delete rm-ticket-photo" data-tid="'+id+'" data-idx="'+i+'">×</button></div>';}).join('');
-                prev.querySelectorAll('.rm-ticket-photo').forEach(function(b){b.addEventListener('click',function(e){e.stopPropagation();removeTicketPhoto(b.dataset.tid,parseInt(b.dataset.idx));});});
-            }else prev.innerHTML='';
-            $('ticketModal').classList.add('active');
-        }
-        function removeTicketPhoto(tid,idx){
-            var t=tickCache.find(function(x){return x.id===tid;});if(!t||!t.photos)return;
-            var np=t.photos.slice();np.splice(idx,1);
-            db.collection('tickets').doc(tid).update({photos:np}).then(function(){editTicket(tid);}).catch(function(e){showAlert('Errore: '+e.message);});
-        }
-        $('saveTicketBtn').addEventListener('click',function(){
-            var title=$('ticketTitle').value.trim();if(!title){showAlert('Il titolo è obbligatorio!');return;}
-            var btn=$('saveTicketBtn');btn.disabled=true;btn.textContent='Salvataggio...';
-            processPhotos('ticketPhoto').then(function(np){
-                if(editingTicketId){
-                    var t=tickCache.find(function(x){return x.id===editingTicketId;});
-                    var ud={title:title,description:$('ticketDesc').value.trim(),status:$('ticketStatus').value};
-                    if(np.length)ud.photos=(t.photos||[]).concat(np);
-                    return db.collection('tickets').doc(editingTicketId).update(ud);
-                }else{
-                    return db.collection('tickets').add({propertyId:currentProperty.id,title:title,description:$('ticketDesc').value.trim(),status:'Aperto',photos:np,createdBy:currentUserName,createdAt:new Date().toISOString()});
-                }
-            }).then(function(){closeModal('ticketModal');}).catch(function(e){showAlert('Errore: '+e.message);}).finally(function(){btn.disabled=false;btn.textContent='Salva';});
-        });
+        // ===== PROPERTY CRUD =====
+        function openPropertyModal(){editingPropertyId=null;$('propertyModalTitle').textContent='Nuovo Immobile';$('propName').value='';$('propAddress').value='';$('propNotes').value='';$('propertyModal').classList.add('active');}
+        $('editPropBtn').addEventListener('click',function(){editingPropertyId=currentProperty.id;$('propertyModalTitle').textContent='Modifica Immobile';$('propName').value=currentProperty.name;$('propAddress').value=currentProperty.address||'';$('propNotes').value=currentProperty.notes||'';$('propertyModal').classList.add('active');});
+        $('savePropBtn').addEventListener('click',function(){var name=$('propName').value.trim();if(!name){showAlert('Il nome è obbligatorio!');return;}var btn=$('savePropBtn');btn.disabled=true;btn.textContent='Salvataggio...';var data={name:name,address:$('propAddress').value.trim(),notes:$('propNotes').value.trim()};var p=editingPropertyId?db.collection('properties').doc(editingPropertyId).update(data):(data.createdAt=new Date().toISOString(),db.collection('properties').add(data));p.then(function(){closeModal('propertyModal');}).catch(function(e){showAlert('Errore: '+e.message);}).finally(function(){btn.disabled=false;btn.textContent='Salva';});});
+        $('delPropBtn').addEventListener('click',function(){showConfirm('Elimina Immobile','Sei sicuro? Verranno eliminati anche impianti, ticket e programmate.',function(){showLoading('Eliminazione...');var pid=currentProperty.id;var dels=['systems','tickets','scheduled'];var chain=Promise.resolve();dels.forEach(function(col){chain=chain.then(function(){return db.collection(col).where('propertyId','==',pid).get();}).then(function(snap){var b=db.batch();snap.forEach(function(d){b.delete(d.ref);});return b.commit();});});chain.then(function(){return db.collection('properties').doc(pid).delete();}).then(showDashboard).catch(function(e){showAlert('Errore: '+e.message);}).finally(hideLoading);});});
 
-        $('delTicketBtn').addEventListener('click',function(){
-            if(!editingTicketId)return;
-            showConfirm('Elimina Ticket','Sei sicuro di voler eliminare questo ticket?',function(){
-                db.collection('tickets').doc(editingTicketId).delete().then(function(){closeModal('ticketModal');}).catch(function(e){showAlert('Errore: '+e.message);});
-            });
-        });
+        // ===== SYSTEM CRUD =====
+        $('addSystemBtn').addEventListener('click',function(){editingSystemId=null;$('systemModalTitle').textContent='Nuovo Impianto';$('systemCategory').value='';$('systemDesc').value='';$('systemPhoto').value='';$('systemPhotoPreview').innerHTML='';$('systemModal').classList.add('active');});
+        $('editSysBtn').addEventListener('click',function(){editingSystemId=currentSystem.id;$('systemModalTitle').textContent='Modifica Impianto';$('systemCategory').value=currentSystem.category;$('systemDesc').value=currentSystem.description||'';$('systemPhoto').value='';$('systemPhotoPreview').innerHTML='';if(currentSystem.photos&&currentSystem.photos.length){$('systemPhotoPreview').innerHTML=currentSystem.photos.map(function(ph,i){return '<div class="photo-item"><img src="'+ph+'" alt="Foto"></div>';}).join('');}$('systemModal').classList.add('active');});
+        $('saveSystemBtn').addEventListener('click',function(){var cat=$('systemCategory').value;if(!cat){showAlert('Seleziona una categoria!');return;}var btn=$('saveSystemBtn');btn.disabled=true;btn.textContent='Salvataggio...';processPhotos('systemPhoto').then(function(newPhotos){if(editingSystemId){var ud={category:cat,description:$('systemDesc').value.trim()};if(newPhotos.length)ud.photos=(currentSystem.photos||[]).concat(newPhotos);return db.collection('systems').doc(editingSystemId).update(ud);}else{return db.collection('systems').add({propertyId:currentProperty.id,category:cat,description:$('systemDesc').value.trim(),photos:newPhotos,createdAt:new Date().toISOString()});}}).then(function(){closeModal('systemModal');}).catch(function(e){showAlert('Errore: '+e.message);}).finally(function(){btn.disabled=false;btn.textContent='Salva';});});
+        $('delSysDetailBtn').addEventListener('click',function(){showConfirm('Elimina Impianto','Eliminare impianto, manutenzioni e certificazioni?',function(){var sid=currentSystem.id;Promise.all([db.collection('maintenance').where('systemId','==',sid).get(),db.collection('certifications').where('systemId','==',sid).get()]).then(function(res){var b=db.batch();res[0].forEach(function(d){b.delete(d.ref);});res[1].forEach(function(d){b.delete(d.ref);});return b.commit();}).then(function(){return db.collection('systems').doc(sid).delete();}).then(backToProperty).catch(function(e){showAlert('Errore: '+e.message);});});});
 
+        // ===== TICKET CRUD =====
+        $('addTicketBtn').addEventListener('click',function(){editingTicketId=null;$('ticketModalTitle').textContent='Nuovo Ticket';$('ticketTitle').value='';$('ticketDesc').value='';$('ticketStatus').value='Aperto';$('ticketPhoto').value='';$('ticketPhotoPreview').innerHTML='';$('ticketStatusGroup').classList.add('hidden');$('delTicketBtn').classList.add('hidden');$('ticketModal').classList.add('active');});
+        function editTicket(id){var t=tickCache.find(function(x){return x.id===id;});if(!t)return;editingTicketId=id;$('ticketModalTitle').textContent='Modifica Ticket';$('ticketTitle').value=t.title;$('ticketDesc').value=t.description||'';$('ticketStatus').value=t.status;$('ticketPhoto').value='';$('ticketStatusGroup').classList.remove('hidden');$('delTicketBtn').classList.remove('hidden');var prev=$('ticketPhotoPreview');if(t.photos&&t.photos.length){prev.innerHTML=t.photos.map(function(ph,i){return '<div class="photo-item"><img src="'+ph+'" alt="Foto"><button class="photo-delete rm-ticket-photo" data-tid="'+id+'" data-idx="'+i+'">×</button></div>';}).join('');prev.querySelectorAll('.rm-ticket-photo').forEach(function(b){b.addEventListener('click',function(e){e.stopPropagation();removeTicketPhoto(b.dataset.tid,parseInt(b.dataset.idx));});});}else prev.innerHTML='';$('ticketModal').classList.add('active');}
+        function removeTicketPhoto(tid,idx){var t=tickCache.find(function(x){return x.id===tid;});if(!t||!t.photos)return;var np=t.photos.slice();np.splice(idx,1);db.collection('tickets').doc(tid).update({photos:np}).then(function(){editTicket(tid);});}
+        $('saveTicketBtn').addEventListener('click',function(){var title=$('ticketTitle').value.trim();if(!title){showAlert('Il titolo è obbligatorio!');return;}var btn=$('saveTicketBtn');btn.disabled=true;btn.textContent='Salvataggio...';processPhotos('ticketPhoto').then(function(np){if(editingTicketId){var t=tickCache.find(function(x){return x.id===editingTicketId;});var ud={title:title,description:$('ticketDesc').value.trim(),status:$('ticketStatus').value};if(np.length)ud.photos=(t.photos||[]).concat(np);return db.collection('tickets').doc(editingTicketId).update(ud);}else{return db.collection('tickets').add({propertyId:currentProperty.id,title:title,description:$('ticketDesc').value.trim(),status:'Aperto',photos:np,createdBy:currentUserName,createdAt:new Date().toISOString()});}}).then(function(){closeModal('ticketModal');}).catch(function(e){showAlert('Errore: '+e.message);}).finally(function(){btn.disabled=false;btn.textContent='Salva';});});
+        $('delTicketBtn').addEventListener('click',function(){if(!editingTicketId)return;showConfirm('Elimina Ticket','Sei sicuro?',function(){db.collection('tickets').doc(editingTicketId).delete().then(function(){closeModal('ticketModal');});});});
+
+        // ===== SCHEDULED CRUD =====
+        $('addSchedBtn').addEventListener('click',function(){editingSchedId=null;$('schedModalTitle').textContent='Nuova Attività Programmata';$('schedName').value='';$('schedFreq').value='';$('schedDate').value='';$('schedNotes').value='';$('delSchedBtn').classList.add('hidden');$('schedModal').classList.add('active');});
+        function editScheduled(id){var s=schedCache.find(function(x){return x.id===id;});if(!s)return;editingSchedId=id;$('schedModalTitle').textContent='Modifica Attività';$('schedName').value=s.name;$('schedFreq').value=s.frequency;$('schedDate').value=s.nextDate||'';$('schedNotes').value=s.notes||'';$('delSchedBtn').classList.remove('hidden');$('schedModal').classList.add('active');}
+        $('saveSchedBtn').addEventListener('click',function(){var name=$('schedName').value.trim(),freq=$('schedFreq').value,date=$('schedDate').value;if(!name){showAlert('Inserisci il nome!');return;}if(!freq){showAlert('Seleziona la frequenza!');return;}if(!date){showAlert('Inserisci la data!');return;}var btn=$('saveSchedBtn');btn.disabled=true;btn.textContent='Salvataggio...';var data={name:name,frequency:freq,nextDate:date,notes:$('schedNotes').value.trim()};var p=editingSchedId?db.collection('scheduled').doc(editingSchedId).update(data):(data.propertyId=currentProperty.id,data.createdAt=new Date().toISOString(),db.collection('scheduled').add(data));p.then(function(){closeModal('schedModal');}).catch(function(e){showAlert('Errore: '+e.message);}).finally(function(){btn.disabled=false;btn.textContent='Salva';});});
+        $('delSchedBtn').addEventListener('click',function(){if(!editingSchedId)return;showConfirm('Elimina','Eliminare questa attività?',function(){db.collection('scheduled').doc(editingSchedId).delete().then(function(){closeModal('schedModal');});});});
+
+        // ===== MAINTENANCE CRUD =====
+        $('addMaintenanceBtn').addEventListener('click',function(){$('maintDate').value=new Date().toISOString().slice(0,10);$('maintDesc').value='';$('maintBy').value=currentUserName;$('maintPhoto').value='';$('maintPhotoPreview').innerHTML='';$('maintenanceModal').classList.add('active');});
+        $('saveMaintBtn').addEventListener('click',function(){var date=$('maintDate').value,desc=$('maintDesc').value.trim();if(!date){showAlert('Inserisci la data!');return;}if(!desc){showAlert('Inserisci la descrizione!');return;}var btn=$('saveMaintBtn');btn.disabled=true;btn.textContent='Salvataggio...';processPhotos('maintPhoto').then(function(photos){return db.collection('maintenance').add({systemId:currentSystem.id,propertyId:currentProperty.id,date:date,description:desc,performedBy:$('maintBy').value.trim(),photos:photos,createdAt:new Date().toISOString()});}).then(function(){closeModal('maintenanceModal');}).catch(function(e){showAlert('Errore: '+e.message);}).finally(function(){btn.disabled=false;btn.textContent='Salva';});});
+
+        // ===== CERTIFICATION CRUD =====
+        $('addCertBtn').addEventListener('click',function(){$('certName').value='';$('certDate').value='';$('certExpiry').value='';$('certNotes').value='';$('certPhoto').value='';$('certPhotoPreview').innerHTML='';$('certModal').classList.add('active');});
+        $('saveCertBtn').addEventListener('click',function(){var name=$('certName').value.trim();if(!name){showAlert('Inserisci il tipo!');return;}var btn=$('saveCertBtn');btn.disabled=true;btn.textContent='Salvataggio...';processPhotos('certPhoto').then(function(photos){return db.collection('certifications').add({systemId:currentSystem.id,propertyId:currentProperty.id,name:name,date:$('certDate').value,expiry:$('certExpiry').value,notes:$('certNotes').value.trim(),photos:photos,createdAt:new Date().toISOString()});}).then(function(){closeModal('certModal');}).catch(function(e){showAlert('Errore: '+e.message);}).finally(function(){btn.disabled=false;btn.textContent='Salva';});});
+
+        // ===== GLOBAL VIEWS =====
         // All tickets
         var currentTicketFilter='tutti';
-        $('navTickets').addEventListener('click',function(){
-            currentTicketFilter='tutti';
-            document.querySelectorAll('.ticket-filter').forEach(function(b){b.classList.remove('active');b.classList.remove('btn-primary');b.classList.add('btn-outline');});
-            document.querySelector('.ticket-filter[data-filter="tutti"]').classList.add('active');
-            document.querySelector('.ticket-filter[data-filter="tutti"]').classList.remove('btn-outline');
-            document.querySelector('.ticket-filter[data-filter="tutti"]').classList.add('btn-primary');
-            loadAllTickets();
-            $('allTicketsModal').classList.add('active');
-        });
+        $('navTickets').addEventListener('click',function(){currentTicketFilter='tutti';document.querySelectorAll('.ticket-filter').forEach(function(b){b.classList.remove('active','btn-primary');b.classList.add('btn-outline');});var f=document.querySelector('.ticket-filter[data-filter="tutti"]');f.classList.add('active','btn-primary');f.classList.remove('btn-outline');loadAllTickets();$('allTicketsModal').classList.add('active');});
+        $('allTicketsModal').addEventListener('click',function(e){var fb=e.target.closest('.ticket-filter');if(!fb)return;currentTicketFilter=fb.dataset.filter;document.querySelectorAll('.ticket-filter').forEach(function(b){b.classList.remove('active','btn-primary');b.classList.add('btn-outline');});fb.classList.add('active','btn-primary');fb.classList.remove('btn-outline');loadAllTickets();});
+        function loadAllTickets(){var body=$('allTicketsBody');body.innerHTML='<div style="text-align:center;padding:20px">Caricamento...</div>';db.collection('tickets').get().then(function(snap){var all=snap.docs.map(function(d){return Object.assign({id:d.id},d.data());});if(currentTicketFilter!=='tutti')all=all.filter(function(t){return t.status===currentTicketFilter;});var ord={'Aperto':0,'In lavorazione':1,'Chiuso':2};all.sort(function(a,b){return(ord[a.status]||0)-(ord[b.status]||0);});if(!all.length){body.innerHTML='<div class="empty-state"><p>Nessun ticket'+(currentTicketFilter!=='tutti'?' "'+currentTicketFilter+'"':'')+'</p></div>';return;}body.innerHTML=all.map(function(t){var pr=propsCache.find(function(p){return p.id===t.propertyId;});var bc=t.status==='Aperto'?'badge-open':t.status==='In lavorazione'?'badge-progress':'badge-closed';var ic=t.status==='Aperto'?'🔵':t.status==='In lavorazione'?'🟠':'🟢';var css=t.status==='Aperto'?'open':t.status==='In lavorazione'?'in-lavorazione':'chiuso';return '<div class="ticket-item '+css+'" style="cursor:default"><div class="ticket-header"><div class="ticket-title">'+esc(t.title)+'</div><span class="badge '+bc+'">'+ic+' '+t.status+'</span></div><div class="ticket-meta" style="margin-bottom:8px"><span>🏠 '+(pr?esc(pr.name):'N/D')+'</span><span>👤 '+esc(t.createdBy||'')+'</span><span>📅 '+fmtDate(t.createdAt)+'</span></div>'+(t.description?'<div class="ticket-desc">'+esc(t.description)+'</div>':'')+'</div>';}).join('');}).catch(function(){body.innerHTML='<div style="text-align:center;padding:20px">Errore</div>';});}
 
-        // Ticket filter buttons - use event delegation on modal
-        $('allTicketsModal').addEventListener('click',function(e){
-            var filterBtn=e.target.closest('.ticket-filter');
-            if(!filterBtn)return;
-            currentTicketFilter=filterBtn.dataset.filter;
-            document.querySelectorAll('.ticket-filter').forEach(function(b){b.classList.remove('active');b.classList.remove('btn-primary');b.classList.add('btn-outline');});
-            filterBtn.classList.add('active');filterBtn.classList.remove('btn-outline');filterBtn.classList.add('btn-primary');
-            loadAllTickets();
-        });
+        // All scheduled (Programmate)
+        $('navProgrammate').addEventListener('click',function(){var body=$('allSchedBody');body.innerHTML='<div style="text-align:center;padding:20px">Caricamento...</div>';$('allSchedModal').classList.add('active');db.collection('scheduled').get().then(function(snap){var all=snap.docs.map(function(d){return Object.assign({id:d.id},d.data());});all.sort(function(a,b){return daysUntil(a.nextDate)-daysUntil(b.nextDate);});if(!all.length){body.innerHTML='<div class="empty-state"><p>Nessuna attività programmata</p></div>';return;}body.innerHTML=all.map(function(s){var pr=propsCache.find(function(p){return p.id===s.propertyId;});var days=daysUntil(s.nextDate);var cls=days<0?'scaduta':days<30?'in-scadenza':'ok';var badgeCls=days<0?'badge-expired':days<30?'badge-upcoming':'badge-ok';var badgeTxt=days<0?'⚠️ Scaduta da '+Math.abs(days)+'gg':days===0?'📅 Oggi!':days<30?'📅 Tra '+days+'gg':'✅ '+fmtDate(s.nextDate);return '<div class="sched-item '+cls+'" style="cursor:default"><div style="display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:8px"><div class="ticket-title">'+esc(s.name)+'</div><span class="badge '+badgeCls+'">'+badgeTxt+'</span></div><div class="ticket-meta mt-1"><span>🏠 '+(pr?esc(pr.name):'N/D')+'</span><span>🔄 '+esc(s.frequency)+'</span></div>'+(s.notes?'<div class="ticket-desc mt-1">'+esc(s.notes)+'</div>':'')+'</div>';}).join('');}).catch(function(){body.innerHTML='<div style="text-align:center;padding:20px">Errore</div>';});});
 
-        function loadAllTickets(){
-            var body=$('allTicketsBody');body.innerHTML='<div style="text-align:center;padding:20px">Caricamento...</div>';
-            db.collection('tickets').get().then(function(snap){
-                var all=snap.docs.map(function(d){return Object.assign({id:d.id},d.data());});
-                if(currentTicketFilter!=='tutti')all=all.filter(function(t){return t.status===currentTicketFilter;});
-                var ord={'Aperto':0,'In lavorazione':1,'Chiuso':2};
-                all.sort(function(a,b){return(ord[a.status]||0)-(ord[b.status]||0);});
-                if(!all.length){body.innerHTML='<div class="empty-state"><p>Nessun ticket'+(currentTicketFilter!=='tutti'?' con stato "'+currentTicketFilter+'"':'')+'</p></div>';return;}
-                body.innerHTML=all.map(function(t){
-                    var pr=propsCache.find(function(p){return p.id===t.propertyId;});
-                    var bc=t.status==='Aperto'?'badge-open':t.status==='In lavorazione'?'badge-progress':'badge-closed';
-                    var ic=t.status==='Aperto'?'🔵':t.status==='In lavorazione'?'🟠':'🟢';
-                    var css=t.status==='Aperto'?'open':t.status==='In lavorazione'?'in-lavorazione':'chiuso';
-                    return '<div class="ticket-item '+css+'" style="cursor:default"><div class="ticket-header"><div class="ticket-title">'+esc(t.title)+'</div><span class="badge '+bc+'">'+ic+' '+t.status+'</span></div><div class="ticket-meta" style="margin-bottom:8px"><span>🏠 '+(pr?esc(pr.name):'N/D')+'</span><span>👤 '+esc(t.createdBy||'')+'</span><span>📅 '+(t.createdAt?new Date(t.createdAt).toLocaleDateString('it-IT'):'')+'</span></div>'+(t.description?'<div class="ticket-desc">'+esc(t.description)+'</div>':'')+'</div>';
-                }).join('');
-            }).catch(function(){body.innerHTML='<div style="text-align:center;padding:20px">Errore</div>';});
-        }
+        // ===== SETTINGS =====
+        $('navSettings').addEventListener('click',function(){$('settingsUser').textContent=currentUserName+' ('+currentUser.email+')';$('newPassword').value='';$('confirmPassword').value='';$('settingsModal').classList.add('active');});
+        $('changePwBtn').addEventListener('click',function(){var pw=$('newPassword').value,pw2=$('confirmPassword').value;if(!pw||pw.length<6){showAlert('Minimo 6 caratteri');return;}if(pw!==pw2){showAlert('Le password non coincidono');return;}var btn=$('changePwBtn');btn.disabled=true;btn.textContent='Salvataggio...';currentUser.updatePassword(pw).then(function(){$('newPassword').value='';$('confirmPassword').value='';showAlert('Password cambiata!');}).catch(function(e){if(e.code==='auth/requires-recent-login')showAlert('Devi rifare il login prima. Esci e rientra.');else showAlert('Errore: '+e.message);}).finally(function(){btn.disabled=false;btn.textContent='Cambia Password';});});
+        $('exportBtn').addEventListener('click',function(){var btn=$('exportBtn');btn.disabled=true;btn.textContent='Esportazione...';Promise.all([db.collection('properties').get(),db.collection('systems').get(),db.collection('tickets').get(),db.collection('scheduled').get()]).then(function(res){var props=res[0].docs.map(function(d){return Object.assign({id:d.id},d.data());}),sys=res[1].docs.map(function(d){return Object.assign({id:d.id},d.data());}),ticks=res[2].docs.map(function(d){return Object.assign({id:d.id},d.data());}),scheds=res[3].docs.map(function(d){return Object.assign({id:d.id},d.data());});var csv='IMMOBILI\nNome;Indirizzo;Note\n';props.forEach(function(p){csv+='"'+esc(p.name)+'";"'+(p.address||'')+'";"'+(p.notes||'')+'"\n';});csv+='\nIMPIANTI\nImmobile;Categoria;Descrizione\n';sys.forEach(function(s){var pr=props.find(function(p){return p.id===s.propertyId;});csv+='"'+(pr?pr.name:'N/D')+'";"'+s.category+'";"'+(s.description||'')+'"\n';});csv+='\nTICKET\nImmobile;Titolo;Descrizione;Stato;Creato da;Data\n';ticks.forEach(function(t){var pr=props.find(function(p){return p.id===t.propertyId;});csv+='"'+(pr?pr.name:'N/D')+'";"'+t.title+'";"'+(t.description||'')+'";"'+t.status+'";"'+(t.createdBy||'')+'";"'+fmtDate(t.createdAt)+'"\n';});csv+='\nATTIVITA PROGRAMMATE\nImmobile;Attività;Frequenza;Prossima Scadenza;Note\n';scheds.forEach(function(s){var pr=props.find(function(p){return p.id===s.propertyId;});csv+='"'+(pr?pr.name:'N/D')+'";"'+s.name+'";"'+s.frequency+'";"'+fmtDate(s.nextDate)+'";"'+(s.notes||'')+'"\n';});var blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'});var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download='export_immobili_'+new Date().toISOString().slice(0,10)+'.csv';document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);}).catch(function(e){showAlert('Errore: '+e.message);}).finally(function(){btn.disabled=false;btn.textContent='📥 Esporta CSV';});});
 
-        // Photos
-        function processPhotos(inputId){
-            var files=$(inputId).files,promises=[];
-            for(var i=0;i<files.length;i++)promises.push(compressImage(files[i],1200,0.7));
-            return Promise.all(promises);
-        }
-        function compressImage(file,maxSz,qual){
-            return new Promise(function(res,rej){
-                var r=new FileReader();r.onload=function(e){var img=new Image();img.onload=function(){
-                    var c=document.createElement('canvas'),w=img.width,h=img.height;
-                    if(w>maxSz||h>maxSz){if(w>h){h=Math.round(h*maxSz/w);w=maxSz;}else{w=Math.round(w*maxSz/h);h=maxSz;}}
-                    c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);res(c.toDataURL('image/jpeg',qual));
-                };img.onerror=rej;img.src=e.target.result;};r.onerror=rej;r.readAsDataURL(file);});
-        }
-        $('systemPhoto').addEventListener('change',function(e){prevPhotos(e.target.files,'systemPhotoPreview');});
-        $('ticketPhoto').addEventListener('change',function(e){prevPhotos(e.target.files,'ticketPhotoPreview',true);});
-        function prevPhotos(files,pid,append){
-            var p=$(pid);if(!append)p.innerHTML='';
-            Array.from(files).forEach(function(f){var r=new FileReader();r.onload=function(e){var d=document.createElement('div');d.className='photo-item';d.innerHTML='<img src="'+e.target.result+'" alt="Preview">';p.appendChild(d);};r.readAsDataURL(f);});
-        }
+        // ===== PHOTOS =====
+        function processPhotos(inputId){var files=$(inputId).files,promises=[];for(var i=0;i<files.length;i++)promises.push(compressImage(files[i],1200,0.7));return Promise.all(promises);}
+        function compressImage(file,maxSz,qual){return new Promise(function(res,rej){var r=new FileReader();r.onload=function(e){var img=new Image();img.onload=function(){var c=document.createElement('canvas'),w=img.width,h=img.height;if(w>maxSz||h>maxSz){if(w>h){h=Math.round(h*maxSz/w);w=maxSz;}else{w=Math.round(w*maxSz/h);h=maxSz;}}c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);res(c.toDataURL('image/jpeg',qual));};img.onerror=rej;img.src=e.target.result;};r.onerror=rej;r.readAsDataURL(file);});}
+        ['systemPhoto','ticketPhoto','maintPhoto','certPhoto'].forEach(function(id){if($(id))$(id).addEventListener('change',function(e){prevPhotos(e.target.files,id+'Preview');});});
+        function prevPhotos(files,pid){var p=$(pid);if(!p)return;p.innerHTML='';Array.from(files).forEach(function(f){var r=new FileReader();r.onload=function(e){var d=document.createElement('div');d.className='photo-item';d.innerHTML='<img src="'+e.target.result+'" alt="Preview">';p.appendChild(d);};r.readAsDataURL(f);});}
 
-        // Seed
-        function seedProperties(){
-            db.collection('properties').get().then(function(snap){
-                if(snap.size>0)return;
-                showLoading('Caricamento immobili...');
-                var batch=db.batch();
-                var props=[
-                    {name:"BP",address:"Vicolo del Bel Poggio, 134 - ROMA",notes:"SEDE"},
-                    {name:"VM",address:"Via Costantino Morin, 32/26 - ROMA",notes:"Locato Pewex"},
-                    {name:"VT",address:"Viale Tirreno, 75 - ROMA",notes:"Locato Mercatino"},
-                    {name:"CdC",address:"Via di Tor san Giovanni, 145 - ROMA",notes:""},
-                    {name:"MC int. 1",address:"Via Monte Corona, 6 - ROMA",notes:"Locato Morichetti"},
-                    {name:"MC int. 2",address:"Via Monte Corona, 6 - ROMA",notes:"Locato D'Ambrosio"},
-                    {name:"MC int. 3",address:"Via Monte Corona, 6 - ROMA",notes:"Locato Bellavita"},
-                    {name:"MC int. 4",address:"Via Monte Corona, 6 - ROMA",notes:"Locato Nalli"},
-                    {name:"MC int. 5",address:"Via Monte Corona, 6 - ROMA",notes:"Locato Arché - Guglielmi"},
-                    {name:"MC int. 6",address:"Via Monte Corona, 6 - ROMA",notes:"Locato Manso"},
-                    {name:"MC int. 7",address:"Via Monte Corona, 6 - ROMA",notes:"Locato Siviero"},
-                    {name:"MC int. 8",address:"Via Monte Corona, 6 - ROMA",notes:"Locato Turri"},
-                    {name:"CAPITIGNANO",address:"Strada per San Giovanni Paganica - Capitignano AQ",notes:"Libero"},
-                    {name:"LUCCA IV piano",address:"Via Fillungo, 142 - LUCCA",notes:""},
-                    {name:"LUCCA Torre",address:"Via S.Anastasio, 1 - LUCCA",notes:""},
-                    {name:"SORESINA",address:"Via Genala, 12 - Soresina - CR",notes:""},
-                    {name:"ARAGONA box",address:"Via Aragona, 44/46 - ROMA",notes:""},
-                    {name:"RJD",address:"",notes:""},{name:"V1",address:"",notes:""},{name:"V2",address:"",notes:""},
-                    {name:"V3",address:"",notes:""},{name:"V4a",address:"",notes:""},{name:"V4b",address:"",notes:""},
-                    {name:"FOGAZZARO Box",address:"",notes:""},{name:"D'OVIDIO Locale",address:"",notes:""},
-                    {name:"VA84",address:"",notes:""},{name:"FdR33",address:"",notes:""}
-                ];
-                props.forEach(function(p){var ref=db.collection('properties').doc();batch.set(ref,Object.assign({},p,{createdAt:new Date().toISOString()}));});
-                batch.commit().then(hideLoading).catch(function(e){hideLoading();console.error(e);});
-            });
-        }
+        // ===== SEED =====
+        function seedProperties(){db.collection('properties').get().then(function(snap){if(snap.size>0)return;showLoading('Caricamento immobili...');var batch=db.batch();var props=[{name:"BP",address:"Vicolo del Bel Poggio, 134 - ROMA",notes:"SEDE"},{name:"VM",address:"Via Costantino Morin, 32/26 - ROMA",notes:"Locato Pewex"},{name:"VT",address:"Viale Tirreno, 75 - ROMA",notes:"Locato Mercatino"},{name:"CdC",address:"Via di Tor san Giovanni, 145 - ROMA",notes:""},{name:"MC int. 1",address:"Via Monte Corona, 6 - ROMA",notes:"Locato Morichetti"},{name:"MC int. 2",address:"Via Monte Corona, 6 - ROMA",notes:"Locato D'Ambrosio"},{name:"MC int. 3",address:"Via Monte Corona, 6 - ROMA",notes:"Locato Bellavita"},{name:"MC int. 4",address:"Via Monte Corona, 6 - ROMA",notes:"Locato Nalli"},{name:"MC int. 5",address:"Via Monte Corona, 6 - ROMA",notes:"Locato Arché - Guglielmi"},{name:"MC int. 6",address:"Via Monte Corona, 6 - ROMA",notes:"Locato Manso"},{name:"MC int. 7",address:"Via Monte Corona, 6 - ROMA",notes:"Locato Siviero"},{name:"MC int. 8",address:"Via Monte Corona, 6 - ROMA",notes:"Locato Turri"},{name:"CAPITIGNANO",address:"Strada per San Giovanni Paganica - Capitignano AQ",notes:"Libero"},{name:"LUCCA IV piano",address:"Via Fillungo, 142 - LUCCA",notes:""},{name:"LUCCA Torre",address:"Via S.Anastasio, 1 - LUCCA",notes:""},{name:"SORESINA",address:"Via Genala, 12 - Soresina - CR",notes:""},{name:"ARAGONA box",address:"Via Aragona, 44/46 - ROMA",notes:""},{name:"RJD",address:"",notes:""},{name:"V1",address:"",notes:""},{name:"V2",address:"",notes:""},{name:"V3",address:"",notes:""},{name:"V4a",address:"",notes:""},{name:"V4b",address:"",notes:""},{name:"FOGAZZARO Box",address:"",notes:""},{name:"D'OVIDIO Locale",address:"",notes:""},{name:"VA84",address:"",notes:""},{name:"FdR33",address:"",notes:""}];props.forEach(function(p){var ref=db.collection('properties').doc();batch.set(ref,Object.assign({},p,{createdAt:new Date().toISOString()}));});batch.commit().then(hideLoading).catch(function(e){hideLoading();console.error(e);});});}
     })();
     </script>
 </body>
