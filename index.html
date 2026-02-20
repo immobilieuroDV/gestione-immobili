@@ -111,15 +111,16 @@
         <div class="header"><h1>🏢 Immobili</h1><div class="header-actions"><span class="user-badge" id="userBadge"></span><button class="btn btn-sm btn-danger" id="logoutBtn">Esci</button></div></div>
         <div id="dashboardView" class="container"><div id="propertiesList"></div><div id="emptyState" class="empty-state hidden"><div class="empty-icon">🏠</div><h3>Nessun immobile</h3><p>Aggiungi il primo immobile con +</p></div></div>
         <div id="propertyDetailView" class="container hidden">
-            <button class="btn btn-outline mb-2" id="backBtn">← Indietro</button>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+                <button class="btn btn-outline" id="backBtn">← Indietro</button>
+                <button class="btn btn-sm btn-secondary" id="infoPropBtn">ℹ️ Info immobile</button>
+            </div>
             <div class="tabs">
-                <div class="tab active" data-tab="info">📋 Info</div>
-                <div class="tab" data-tab="systems">⚙️ Impianti</div>
+                <div class="tab active" data-tab="systems">⚙️ Impianti</div>
                 <div class="tab" data-tab="tickets">🎫 Ticket</div>
                 <div class="tab" data-tab="scheduled">📅 Programmate</div>
             </div>
-            <div id="tab-info" class="tab-content active"><div class="card"><h3 class="mb-2">Anagrafica Immobile</h3><div id="propertyInfo"></div><div style="display:flex;gap:12px;margin-top:20px;flex-wrap:wrap"><button class="btn btn-primary" id="editPropBtn">✏️ Modifica</button><button class="btn btn-danger" id="delPropBtn">🗑️ Elimina</button></div></div></div>
-            <div id="tab-systems" class="tab-content"><div id="systemsList"></div><button class="btn btn-primary btn-block mt-2" id="addSystemBtn">+ Aggiungi Impianto</button></div>
+            <div id="tab-systems" class="tab-content active"><div id="systemsList"></div><button class="btn btn-primary btn-block mt-2" id="addSystemBtn">+ Aggiungi Impianto</button></div>
             <div id="tab-tickets" class="tab-content"><div id="ticketsList"></div><button class="btn btn-primary btn-block mt-2" id="addTicketBtn">+ Nuovo Ticket</button></div>
             <div id="tab-scheduled" class="tab-content"><div id="scheduledList"></div><button class="btn btn-primary btn-block mt-2" id="addSchedBtn">+ Nuova Attività Programmata</button></div>
         </div>
@@ -151,6 +152,8 @@
     </div>
 
     <!-- MODALS -->
+    <div id="infoModal" class="modal"><div class="modal-content"><div class="modal-header"><div class="modal-title">ℹ️ Info Immobile</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><div id="propertyInfo"></div></div><div class="modal-footer"><button class="btn btn-primary" id="editPropBtn">✏️ Modifica</button><button class="btn btn-danger" id="delPropBtn">🗑️ Elimina</button></div></div></div>
+
     <div id="propertyModal" class="modal"><div class="modal-content"><div class="modal-header"><div class="modal-title" id="propertyModalTitle">Nuovo Immobile</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><div class="form-group"><label>Nome *</label><input type="text" id="propName" placeholder="Es: Appartamento Via Roma 10"></div><div class="form-group"><label>Indirizzo</label><input type="text" id="propAddress" placeholder="Via Roma 10, Milano"></div><div class="form-group"><label>Note</label><textarea id="propNotes" placeholder="Note aggiuntive..."></textarea></div></div><div class="modal-footer"><button class="btn btn-secondary modal-close-btn">Annulla</button><button class="btn btn-primary" id="savePropBtn">Salva</button></div></div></div>
 
     <div id="systemModal" class="modal"><div class="modal-content"><div class="modal-header"><div class="modal-title" id="systemModalTitle">Nuovo Impianto</div><button class="btn btn-icon modal-close-btn">×</button></div><div class="modal-body"><div class="form-group"><label>Categoria *</label><select id="systemCategory"><option value="">Seleziona...</option><option value="Elettrico">⚡ Elettrico</option><option value="Idraulico">💧 Idraulico</option><option value="Riscaldamento">🔥 Riscaldamento</option><option value="Condizionamento">❄️ Condizionamento</option><option value="Varie Interni">🏠 Varie Interni</option><option value="Varie Esterni">🌳 Varie Esterni</option></select></div><div class="form-group"><label>Descrizione</label><textarea id="systemDesc" placeholder="Marca, modello, dettagli..."></textarea></div><div class="form-group"><label>Foto Targhetta/Impianto</label><input type="file" id="systemPhoto" accept="image/*" capture="environment" multiple><div id="systemPhotoPreview" class="photo-preview"></div></div></div><div class="modal-footer"><button class="btn btn-secondary modal-close-btn">Annulla</button><button class="btn btn-primary" id="saveSystemBtn">Salva</button></div></div></div>
@@ -236,7 +239,7 @@
             currentSystem=null;
             $('dashboardView').classList.add('hidden');$('propertyDetailView').classList.remove('hidden');$('systemDetailView').classList.add('hidden');
             document.querySelector('.header h1').textContent=currentProperty.name;$('fabButton').classList.add('hidden');
-            switchTab('info');renderDetail();listenSys(id);listenTick(id);listenSched(id);
+            switchTab('systems');renderDetail();listenSys(id);listenTick(id);listenSched(id);
         }
         function viewSystem(id){
             currentSystem=sysCache.find(function(s){return s.id===id;});if(!currentSystem)return;
@@ -330,9 +333,10 @@
 
         // ===== PROPERTY CRUD =====
         function openPropertyModal(){editingPropertyId=null;$('propertyModalTitle').textContent='Nuovo Immobile';$('propName').value='';$('propAddress').value='';$('propNotes').value='';$('propertyModal').classList.add('active');}
-        $('editPropBtn').addEventListener('click',function(){editingPropertyId=currentProperty.id;$('propertyModalTitle').textContent='Modifica Immobile';$('propName').value=currentProperty.name;$('propAddress').value=currentProperty.address||'';$('propNotes').value=currentProperty.notes||'';$('propertyModal').classList.add('active');});
+        $('infoPropBtn').addEventListener('click',function(){renderDetail();$('infoModal').classList.add('active');});
+        $('editPropBtn').addEventListener('click',function(){closeModal('infoModal');editingPropertyId=currentProperty.id;$('propertyModalTitle').textContent='Modifica Immobile';$('propName').value=currentProperty.name;$('propAddress').value=currentProperty.address||'';$('propNotes').value=currentProperty.notes||'';$('propertyModal').classList.add('active');});
         $('savePropBtn').addEventListener('click',function(){var name=$('propName').value.trim();if(!name){showAlert('Il nome è obbligatorio!');return;}var btn=$('savePropBtn');btn.disabled=true;btn.textContent='Salvataggio...';var data={name:name,address:$('propAddress').value.trim(),notes:$('propNotes').value.trim()};var p=editingPropertyId?db.collection('properties').doc(editingPropertyId).update(data):(data.createdAt=new Date().toISOString(),db.collection('properties').add(data));p.then(function(){closeModal('propertyModal');}).catch(function(e){showAlert('Errore: '+e.message);}).finally(function(){btn.disabled=false;btn.textContent='Salva';});});
-        $('delPropBtn').addEventListener('click',function(){showConfirm('Elimina Immobile','Sei sicuro? Verranno eliminati anche impianti, ticket e programmate.',function(){showLoading('Eliminazione...');var pid=currentProperty.id;var dels=['systems','tickets','scheduled'];var chain=Promise.resolve();dels.forEach(function(col){chain=chain.then(function(){return db.collection(col).where('propertyId','==',pid).get();}).then(function(snap){var b=db.batch();snap.forEach(function(d){b.delete(d.ref);});return b.commit();});});chain.then(function(){return db.collection('properties').doc(pid).delete();}).then(showDashboard).catch(function(e){showAlert('Errore: '+e.message);}).finally(hideLoading);});});
+        $('delPropBtn').addEventListener('click',function(){closeModal('infoModal');showConfirm('Elimina Immobile','Sei sicuro? Verranno eliminati anche impianti, ticket e programmate.',function(){showLoading('Eliminazione...');var pid=currentProperty.id;var dels=['systems','tickets','scheduled'];var chain=Promise.resolve();dels.forEach(function(col){chain=chain.then(function(){return db.collection(col).where('propertyId','==',pid).get();}).then(function(snap){var b=db.batch();snap.forEach(function(d){b.delete(d.ref);});return b.commit();});});chain.then(function(){return db.collection('properties').doc(pid).delete();}).then(showDashboard).catch(function(e){showAlert('Errore: '+e.message);}).finally(hideLoading);});});
 
         // ===== SYSTEM CRUD =====
         $('addSystemBtn').addEventListener('click',function(){editingSystemId=null;$('systemModalTitle').textContent='Nuovo Impianto';$('systemCategory').value='';$('systemDesc').value='';$('systemPhoto').value='';$('systemPhotoPreview').innerHTML='';$('systemModal').classList.add('active');});
